@@ -1,0 +1,20 @@
+{
+    "6942069":{
+        "id":"6942069",
+        "user_id":"${userId}",
+        "fairy_id":"${fairyId}",
+        "team_id":"1",
+        "fairy_lv":"${fairyLevel}",
+        "fairy_exp":"${fairyExp}",
+        "quality_lv":"${fairyRarity}",
+        "quality_exp":"${fairyRarityExp}",
+        "skill_lv":"${fairySkill}",
+        "passive_skill":"${fairyTalent}",
+        "is_locked":"1",
+        "equip_id":"0",
+        "adjust_count":"0",
+        "last_adjust":"0",
+        "passive_skill_collect":"${fairyTalent}",
+        "skin":"0"
+    }
+}

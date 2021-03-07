@@ -1,0 +1,338 @@
+@import './variables.less';
+
+.echelon-list-element-container {
+  width: 100%;
+  height: 100%;
+  box-sizing: content-box;
+}
+
+.echelon-list-element-container-no-tdoll {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  background-image: url("../../static/icon/misc/select-tdoll.png");
+  height: 100%;
+  margin-left: @padding-fourth;
+  margin-right: @padding-fourth;
+  cursor: pointer;
+}
+
+.echelon-list-element-name {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: @padding-fourth;
+  padding-left: @padding-fourth;
+  padding-right: @padding-fourth;
+  text-align: center;
+  height: 1rem;
+  line-height: 1rem;
+  cursor: grab;
+}
+
+.echelon-list-element-name div {
+  cursor: grab;
+}
+
+.echelon-list-element-class {
+  width: @echelon-list-doll-class-width;
+  height: @echelon-list-doll-class-height;
+  background-repeat: no-repeat;
+  background-size: contain;
+  box-sizing: content-box;
+}
+
+.echelon-list-element-rarity {
+  font-size: calc(@text-normal * 0.4);
+  text-align: end;
+}
+
+.echelon-list-element-dummies {
+  margin-top: @echelon-list-element-dummies-margin-top;
+  text-align: end;
+}
+
+.echelon-list-element-dummies-select.MuiInput-root {
+  height: @echelon-list-element-dummies-select-height;
+}
+
+.echelon-list-element-dummies-select & .MuiSelect-select.MuiSelect-select {
+  font-size: @text-small;
+  text-align: end;
+}
+
+.echelon-list-element-dummies-select & .MuiSelect-select:focus {
+  background-color: transparent
+}
+
+.echelon-list-element-stats-container {
+  margin-top: @padding-fourth;
+  margin-left: @padding-fourth;
+  margin-right: @padding-fourth;
+  box-sizing: content-box;
+}
+
+.echelon-list-element-stats-row {
+  margin-left: 0;
+  margin-right: 0;
+  height: 1rem;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+.echelon-list-element-stats-cell-left {
+  float: left;
+  width: 50%;
+}
+
+.echelon-list-element-stats-cell-right {
+  float: right;
+  width: 50%;
+}
+
+.echelon-list-element-stat-value {
+  margin-left: @echelon-list-element-stat-value-left-margin;
+  display: inline-block;
+  top: 50%;
+  position: absolute;
+  transform: translateY(-50%);
+  font-size: @text-small;
+}
+
+.echelon-list-element-stat-icon {
+  width: @echelon-list-element-stat-icon-size;
+  height: @echelon-list-element-stat-icon-size;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: inline-block;
+  top: 50%;
+  position: absolute;
+  transform: translateY(-50%);
+}
+
+.echelon-list-element-stat-icon.hp {
+  background-image: url('../../static/icon/stat/hp.png');
+}
+
+.echelon-list-element-stat-icon.damage {
+  background-image: url('../../static/icon/stat/damage.png');
+}
+
+.echelon-list-element-stat-icon.rof {
+  background-image: url('../../static/icon/stat/rof.png');
+}
+
+.echelon-list-element-stat-icon.accuracy {
+  background-image: url('../../static/icon/stat/accuracy.png');
+}
+
+.echelon-list-element-stat-icon.evasion {
+  background-image: url('../../static/icon/stat/evasion.png');
+}
+
+.echelon-list-element-stat-icon.armor {
+  background-image: url('../../static/icon/stat/armor.png');
+}
+
+.echelon-list-element-stat-icon.movement-speed {
+  background-image: url('../../static/icon/stat/movement-speed.png');
+}
+
+.echelon-list-element-stat-icon.armor-penetration {
+  background-image: url('../../static/icon/stat/armor-penetration.png');
+}
+
+.echelon-list-element-stat-icon.critical-rate {
+  background-image: url('../../static/icon/stat/critical-rate.png');
+}
+
+.echelon-list-element-stat-icon.critical-damage {
+  background-image: url('../../static/icon/stat/critical-damage.png');
+}
+
+.echelon-list-element-stat-icon.rounds {
+  background-image: url('../../static/icon/stat/rounds.png');
+}
+
+.echelon-list-element-select-container {
+  margin-left: @padding-fourth;
+  margin-right: @padding-fourth;
+  margin-top: @padding-fourth;
+  width: @echelon-list-element-select-form-control-width;
+}
+
+.echelon-list-element-select-label.MuiFormLabel-root {
+  font-size: @text-small;
+  white-space: nowrap;
+}
+
+.echelon-list-element-select-form-control.MuiFormControl-root {
+  width: @echelon-list-element-select-form-control-width;
+}
+
+.echelon-list-element-select-select.MuiOutlinedInput-root {
+  height: @echelon-list-element-select-select-height;
+}
+
+.echelon-list-element-select-select & .MuiSelect-select.MuiSelect-select {
+  text-align: center;
+  padding-left: 0;
+  padding-right: 0;
+  font-size: @text-small;
+}
+
+.echelon-list-element-select-select & .MuiSelect-select:focus {
+  background-color: transparent;
+}
+
+
+.echelon-list-element-tdoll-picker-tab.MuiTab-root {
+  cursor: pointer;
+  min-width: @echelon-list-element-tdoll-picker-tab-min-width;
+}
+
+.echelon-list-element-tdoll-picker-tab.MuiTab-root .MuiTab-wrapper {
+  cursor: pointer;
+}
+
+.echelon-list-element-equips {
+  margin-top: @padding-half;
+  margin-left: @padding-eighth;
+  margin-right: @padding-eighth;
+}
+
+.echelon-list-element-equips.MuiGrid-container {
+  width: unset;
+}
+
+.echelon-list-element-equips .MuiGrid-root {
+  padding-left: @padding-eighth;
+  padding-right: @padding-eighth;
+}
+
+.echelon-list-element-equip {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  height: @echelon-list-element-equip-height;
+  border-radius: @radius-normal;
+}
+
+.echelon-list-element-equip:not(.locked) {
+  cursor: pointer;
+}
+
+.echelon-list-element-equip.pickable {
+  background-image: url("../../static/icon/misc/pick-equip.png");
+}
+
+.echelon-list-element-equip.locked {
+  background-image: url("../../static/icon/misc/lock.png");
+}
+
+.equip-rarity2 {
+  background-color: @color-rarity-2;
+}
+
+.equip-rarity3 {
+  background-color: @color-rarity-3;
+}
+
+.equip-rarity4 {
+  background-color: @color-rarity-4;
+}
+
+.equip-rarity5 {
+  background-color: @color-rarity-5;
+}
+
+.echelon-list-element-pick-ce-group {
+  margin-top: @padding-fourth;
+}
+
+.echelon-list-element-ce {
+  text-align: center;
+  padding-left: @padding-fourth;
+  padding-right: @padding-fourth;
+}
+
+.echelon-list-element-ce-label {
+  font-size: @text-very-small;
+}
+
+.echelon-list-element-pick {
+  margin-right: @padding-fourth;
+}
+
+.echelon-list-element-pick-img {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.echelon-list-element-equip-picker-type {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: @padding-fourth;
+  margin-right: @padding-fourth;
+  margin-bottom: @padding-half;
+}
+
+.echelon-list-element-equip-picker-type-element {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: @echelon-list-element-equip-picker-type-element-width;
+  min-width: @echelon-list-element-equip-picker-type-element-width;
+  height: @echelon-list-element-equip-picker-type-element-height;
+  border-radius: @radius-normal;
+  margin-left: @padding-fourth;
+  margin-right: @padding-fourth;
+  margin-bottom: @padding-fourth;
+  cursor: pointer;
+}
+
+.echelon-list-element-tdoll-picker-tdoll-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: @padding-fourth;
+  justify-content: start;
+  width: @echelon-list-element-tdoll-picker-container-width;
+}
+
+.echelon-list-element-tdoll-picker-tdoll {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: left;
+  width: @echelon-list-element-equip-picker-tdoll-width;
+  height: @echelon-list-element-equip-picker-tdoll-height;
+  margin: @padding-fourth;
+  cursor: pointer;
+}
+
+.echelon-list-element-tdoll-picker-tdoll:hover {
+  background-position: right;
+}
+
+.echelon-list-element-tdoll-picker-tdoll-name-container {
+  width: @echelon-list-element-equip-picker-tdoll-width;
+  height: @echelon-list-element-equip-picker-tdoll-name-height;
+  position: relative;
+  text-align: center;
+  white-space: nowrap;
+  margin-left: auto;
+  margin-right: auto;
+  top: 100%;
+  transform: translateY(-100%);
+  color: @color-tdoll-picker-name-text;
+  background-color: @color-tdoll-picker-name-background;
+  font-weight: bold;
+}
+
+.echelon-list-element-tdoll-picker-tdoll-name {
+  width: @echelon-list-element-equip-picker-tdoll-name-width;
+  height: @echelon-list-element-equip-picker-tdoll-name-height;
+  line-height: @echelon-list-element-equip-picker-tdoll-name-height;
+  margin-left: auto;
+  margin-right: auto;
+}

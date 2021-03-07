@@ -1,0 +1,19 @@
+{
+    "recover_mp": 0,
+    "recover_ammo": 0,
+    "recover_mre": 0,
+    "recover_part": 0,
+    "gem": 0,
+    "all_favorup_gun": [],
+    "all_favorup_sangvis": [],
+    "last_favor_recover_time": "${signUpTime}",
+    "recover_ssoc": 0,
+    "last_ssoc_change_time": "${signUpTime}",
+    "kick": 0,
+    "friend_messagelist": [],
+    "friend_applylist": [],
+    "index_getmaillist": [],
+    "squad_data_daily": [],
+    "build_coin_flag": -4,
+    "is_bind": "0"
+}

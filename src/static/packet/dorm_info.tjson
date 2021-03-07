@@ -1,0 +1,21 @@
+{
+    "info": {
+        "praise_num": 0,
+        "visit_num": 0,
+        "user_id": "${userId}",
+        "dorm_id": "1"
+    },
+    "in_mydorm_list": [],
+    "my_visit_list": [],
+    "build_coin_flag": -4,
+    "current_build_coin": "0",
+    "establish_build_result": [],
+    "reset_build_coin_data": [],
+    "notice": {
+        "is_view_notice": "1",
+        "notice": "OwO"
+    },
+    "is_show_commander": "1",
+    "is_use_commander": "0",
+    "is_sangvis_show_gun": "1"
+}

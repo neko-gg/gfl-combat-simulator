@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "allowJs": true,
+    "target": "ES6",
+    //"module": "ESNext",
+    "module": "commonjs",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "outDir": "dist",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "paths": {
+      "*": [
+        "node_modules/*",
+        "./src/app/types/*"
+      ],
+      "@app/*": [
+        "./src/app/*"
+      ],
+      "@static/*": [
+        "./src/static/*"
+      ],
+      "@src/*": [
+        "./src/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "tests/",
+    "node_modules/",
+    "out/"
+  ]
+}

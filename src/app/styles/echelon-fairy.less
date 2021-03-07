@@ -1,0 +1,158 @@
+@import './variables.less';
+
+.echelon-fairy-container {
+  padding: @padding-normal;
+  margin-left: 0;
+  margin-right: auto;
+  width: @echelon-fairy-container-width;
+}
+
+.echelon-fairy-inside-container {
+  background-color: @color-echelon-fairy-bg;
+  padding-top: @padding-fourth;
+  padding-bottom: @padding-fourth;
+}
+
+.echelon-fairy-select-group.MuiGrid-container {
+  width: @echelon-fairy-container-width;
+}
+
+.echelon-fairy-name {
+  text-align: center;
+  white-space: nowrap;
+  padding-left: @padding-fourth;
+  padding-right: @padding-fourth;
+}
+
+.echelon-fairy-rarity {
+  position: absolute;
+  text-align: right;
+  font-size: xx-small;
+  top: 0;
+  right: @padding-fourth;
+}
+
+.echelon-fairy-rarity-line-two {
+  display: flex;
+  justify-content: center;
+}
+
+.echelon-fairy-rarity-line-two-element.hidden {
+  visibility: hidden;
+}
+
+.echelon-fairy {
+  height: @echelon-fairy-height;
+  padding: @padding-normal;
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  cursor: pointer;
+}
+
+.echelon-fairy.not-present {
+  background-size: 50%;
+}
+
+
+.echelon-fairy-select-full-width .echelon-list-element-select-container {
+  width: 100%;
+}
+
+.echelon-fairy-select-full-width .echelon-list-element-select-container .echelon-list-element-select-form-control.MuiFormControl-root {
+  width: calc(@echelon-fairy-full-width-width);
+}
+
+.echelon-fairy-select-group-element .echelon-list-element-select-container {
+  width: @echelon-fairy-select-group-element-width;
+}
+
+.echelon-fairy-select-group-element .echelon-list-element-select-container .echelon-list-element-select-form-control.MuiFormControl-root {
+  width: @echelon-fairy-select-group-element-width;
+}
+
+.echelon-fairy-picker-fairy-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: @echelon-fairy-picker-fairy-container-width;
+}
+
+.echelon-fairy-picker-fairy {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  margin: @padding-fourth;
+  width: @echelon-fairy-picker-fairy-width;
+  height: @echelon-fairy-picker-fairy-height;
+  cursor: pointer;
+}
+
+.echelon-fairy-picker-fairy-name-container {
+  height: @echelon-fairy-picker-fairy-name-height;
+  position: relative;
+  text-align: center;
+  white-space: nowrap;
+  margin-left: auto;
+  margin-right: auto;
+  top: 100%;
+  transform: translateY(-100%);
+  color: @color-fairy-picker-name-text;
+  background-color: @color-fairy-picker-name-background;
+  font-weight: bold;
+  padding-left: @padding-fourth;
+  padding-right: @padding-fourth;
+}
+
+.echelon-fairy-picker-fairy-name {
+  line-height: @echelon-fairy-picker-fairy-name-height;
+}
+
+.echelon-fairy-stats {
+  font-size: @text-small;
+  position: absolute;
+  left: @padding-fourth;
+  bottom: 0;
+  background-color: @color-fairy-stats-background;
+  border-radius: @radius-normal;
+}
+
+.echelon-fairy-stats-stat {
+  position: relative;
+  margin-left: calc(@echelon-fairy-stat-icon-size + @padding-half);
+  margin-right: @padding-fourth;
+}
+
+.echelon-fairy-stats-stat:before {
+  content: "";
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: @echelon-fairy-stat-icon-size;
+  height: @echelon-fairy-stat-icon-size;
+  float: left;
+  position: absolute;
+  top: 50%;
+  left: calc(-1 * (@echelon-fairy-stat-icon-size + @padding-eighth));
+  transform: translateY(-50%);
+}
+
+.echelon-fairy-stats-stat.damage:before {
+  background-image: url('../../static/icon/stat/damage.png');
+}
+
+.echelon-fairy-stats-stat.accuracy:before {
+  background-image: url('../../static/icon/stat/accuracy.png');
+}
+
+.echelon-fairy-stats-stat.evasion:before {
+  background-image: url('../../static/icon/stat/evasion.png');
+}
+
+.echelon-fairy-stats-stat.armor:before {
+  background-image: url('../../static/icon/stat/armor.png');
+}
+
+.echelon-fairy-stats-stat.criticalDamage:before {
+  background-image: url('../../static/icon/stat/critical-damage.png');
+}

@@ -1,0 +1,55 @@
+@import './variables.less';
+
+html,
+body,
+#app {
+  height: 100%;
+}
+
+body {
+  font-family: @base-font-family;
+  font-size: @text-normal;
+  margin: auto;
+  max-width: 42rem;
+  color: @color-text;
+  background-color: @color-body-bg;
+  padding: @padding-normal;
+}
+
+::-webkit-scrollbar {
+  width: @scrollbar-width;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: @color-scrollbar;
+  border-radius: @scrollbar-radius;
+  border: @scrollbar-border-width solid transparent;
+  background-clip: content-box;
+  min-width: @scrollbar-thumb-size;
+  min-height: @scrollbar-thumb-size;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+:not(input):not(textarea),
+:not(input):not(textarea)::after,
+:not(input):not(textarea)::before {
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: default;
+}
+
+input, button, textarea, :focus {
+  outline: none;
+}
+
+.settings-tab-icon.MuiTab-fullWidth {
+  max-width: @settings-tab-icon-width;
+  min-width: @settings-tab-icon-width;
+}

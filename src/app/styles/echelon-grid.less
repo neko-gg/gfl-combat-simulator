@@ -1,0 +1,102 @@
+@import './variables.less';
+
+.echelon-grid-container {
+  margin-left: auto;
+  margin-right: auto;
+  padding: @padding-normal;
+  height: @echelon-grid-size;
+  width: @echelon-grid-size;
+}
+
+.echelon-grid {
+  height: @echelon-grid-size;
+  width: @echelon-grid-size;
+}
+
+.echelon-grid-row {
+  width: @echelon-grid-size;
+}
+
+.echelon-grid-cell {
+  background-image: url('../../static/image/echelon-grid-cell-background.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.echelon-grid-doll {
+  margin: auto;
+  height: @echelon-grid-doll-size;
+  width: @echelon-grid-doll-size;
+  text-align: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  cursor: grab;
+}
+
+.echelon-grid-doll-class {
+  float: left;
+  margin-top: @padding-fourth;
+  margin-right: auto;
+  margin-left: @padding-fourth;
+  width: @echelon-grid-doll-class-width;
+  height: @echelon-grid-doll-class-height;
+  background-repeat: no-repeat;
+  background-size: contain;
+  filter: invert(100%);
+}
+
+.echelon-grid-doll-class.hg {
+  background-image: url('../../static/icon/tdoll/hg2.png');
+}
+
+.echelon-grid-doll-class.smg {
+  background-image: url('../../static/icon/tdoll/smg2.png');
+}
+
+.echelon-grid-doll-class.rf {
+  background-image: url('../../static/icon/tdoll/rf2.png');
+}
+
+.echelon-grid-doll-class.ar {
+  background-image: url('../../static/icon/tdoll/ar2.png');
+}
+
+.echelon-grid-doll-class.mg {
+  background-image: url('../../static/icon/tdoll/mg2.png');
+}
+
+.echelon-grid-doll-class.sg {
+  background-image: url('../../static/icon/tdoll/sg2.png');
+}
+
+.echelon-grid-doll-tiles {
+  margin-top: @padding-fourth;
+  margin-right: @padding-fourth;
+  margin-left: auto;
+  height: @echelon-grid-doll-tiles-size;
+  width: @echelon-grid-doll-tiles-size;
+  float: right;
+}
+
+.echelon-grid-doll-tiles-tile {
+  height: @echelon-grid-doll-tiles-tile-size;
+  width: @echelon-grid-doll-tiles-tile-size;
+  box-shadow: inset 0 0 0 @echelon-grid-doll-tiles-tile-border-width @color-echelon-grid-doll-tiles-tile-border;
+}
+
+.echelon-grid-doll-tiles-tile.stand {
+  background-color: @color-echelon-grid-doll-tiles-tile-stand;
+}
+
+.echelon-grid-doll-tiles-tile.buffs {
+  background-color: @color-echelon-grid-doll-tiles-tile-buffs;
+}
+
+.echelon-grid-doll-tiles-tile.empty {
+  background-color: @color-echelon-grid-doll-tiles-tile-empty;
+}
+
+.echelon-grid-doll-draggable.dragged {
+  visibility: hidden;
+}
