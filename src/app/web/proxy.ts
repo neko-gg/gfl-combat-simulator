@@ -249,15 +249,63 @@ export const startProxy = (onError: (error: Error, port: number) => void = () =>
                 const outDataCode = requestBody.split('&outdatacode=').pop().split('&req_id=')[0];
                 const decodedCrashLog = decodeURIComponent(outDataCode);
                 const decryptedCrashLog = decryptPacketBody(decodedCrashLog, signKey);
-                logger.warn(
-                    `crash report: "${decryptedCrashLog}"`
-                );
+                logger.warn(`crash report: "${decryptedCrashLog}"`);
             });
 
             const responseBody = '1';
             const encryptedResponseBody = encryptPacketBody(responseBody, signKey);
             logger.silly(`sending simulated crash report response to client: ${responseBody}`);
             ctx.proxyToClientResponse.end(encryptedResponseBody);
+            return callback();
+        }
+
+        if (ctx.clientToProxyRequest.url.endsWith('Mission/battleFinish')) {
+            const templateResponseBody = fs.readFileSync(getStaticPath(path.join('packet', 'battle_finish.tjson')), 'utf8');
+            const responseBody = JSON.stringify(JSON.parse(templateResponseBody));
+            const encryptedResponseBody = encryptPacketBody(responseBody, signKey);
+
+            logger.silly(`sending simulated battle finish response to client: ${responseBody}`);
+            ctx.proxyToClientResponse.end(encryptedResponseBody);
+            return;
+        }
+
+        if (ctx.clientToProxyRequest.url.endsWith('Mission/endEnemyTurn')) {
+            const templateEndEnemyTurn = '{error:69}'; // invalid json to trigger re-login
+            const encryptedResponseBody = encryptPacketBody(templateEndEnemyTurn, signKey);
+
+            logger.silly(`sending simulated end enemy turn response to client: ${templateEndEnemyTurn}`);
+            ctx.proxyToClientResponse.end(encryptedResponseBody);
+            return;
+        }
+
+        if (ctx.clientToProxyRequest.headers.host.includes('girlfrontline') || ctx.clientToProxyRequest.headers.host.includes('sunborngame')) {
+            const reqChunks: Buffer[] = [];
+
+            ctx.onRequestData(function (ctx, chunk, callback) {
+                reqChunks.push(chunk);
+                return callback(null, chunk);
+            });
+
+            ctx.onRequestEnd(() => {
+                try {
+                    const requestBody = Buffer.concat(reqChunks).toString();
+
+                    if (requestBody && requestBody.includes('outdatacode')) {
+                        const outDataCode = requestBody.split('&outdatacode=').pop().split('&req_id=')[0];
+                        const decodedRequest = decodeURIComponent(outDataCode);
+                        const decryptedRequest = decryptPacketBody(decodedRequest, signKey);
+                        logger.silly(`request to ${ctx.clientToProxyRequest.url}: "${decryptedRequest}"`);
+                    } else {
+                        logger.silly(`request to ${ctx.clientToProxyRequest.url}: "${requestBody}"`);
+                    }
+                } catch (error) {
+                    logger.error(`error decoding request: ${error}`);
+                }
+            });
+
+            const responseBody = '\n\n⚠ GFL Combat Simulator error!\nOperation not supported.';
+            logger.silly(`sending simulated error response to client`);
+            ctx.proxyToClientResponse.end(responseBody);
             return callback();
         }
 
