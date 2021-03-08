@@ -1,0 +1,93 @@
+{
+    "died_this_section":{
+        "enemy":[
+            "1"
+        ],
+        "ally":[
+
+        ]
+    },
+    "fairy_skill_return":[
+
+    ],
+    "fairy_skill_perform":[
+
+    ],
+    "fairy_skill_on_spot":[
+
+    ],
+    "fairy_skill_on_team":[
+
+    ],
+    "fairy_skill_on_enemy":[
+
+    ],
+    "fairy_skill_on_squad":[
+
+    ],
+    "fairy_skill_on_ally":[
+
+    ],
+    "fairy_skill_on_sangvis":[
+
+    ],
+    "fairy_skill_on_friend_team":[
+
+    ],
+    "fairy_skill_on_friend_sangvis":[
+
+    ],
+    "spot_act_info":[
+
+    ],
+    "building_info":[
+
+    ],
+    "mission_win_step_control_ids":[
+
+    ],
+    "free_exp":0,
+    "user_exp":"0",
+    "gun_exp":[
+
+    ],
+    "fairy_exp":0,
+    "gun_life":[
+
+    ],
+    "squad_exp":[
+
+    ],
+    "battle_rank":"5",
+    "change_belong":[
+
+    ],
+    "building_defender_change":[
+
+    ],
+    "mission_win_result":[
+
+    ],
+    "spot_teleport_result":[
+
+    ],
+    "seed":593,
+    "favor_change":{
+
+    },
+    "spot_trans":[
+
+    ],
+    "type5_score":"0",
+    "ally_instance_transform":[
+
+    ],
+    "ally_instance_betray":[
+
+    ],
+    "mission_control":{
+        "1":1,
+        "2":2,
+        "3":3
+    }
+}

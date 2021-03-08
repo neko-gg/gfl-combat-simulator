@@ -49,7 +49,7 @@
     "user_id":"${userId}",
     "reinforce_squads":"[]",
     "mission_control_trigger_spot_id":"[]",
-    "turn_belong":"1",
+    "turn_belong":"4",
     "save_hostage":"0",
     "battle_count":"0",
     "enemydie_num_killbyhostage":"0",
