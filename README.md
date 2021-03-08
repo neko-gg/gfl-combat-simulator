@@ -10,7 +10,7 @@ A proxy-based battle simulator for Girls' Frontline.
 - ⚙ Choose any equipment
 - 🔢 Stats preview
 - 🧮 Combat Efficiency for allies and enemies 
-- 📍 Preview enemy team composition
+- 👾 Preview enemy team composition
 - 🌗 Set battle environment
 
 ## Installation
