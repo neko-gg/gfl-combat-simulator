@@ -1,5 +1,4 @@
 import {app, BrowserWindow, ipcMain, protocol} from 'electron';
-import {startServer} from '@app/web/server'
 import {changePort, startProxy} from "@app/web/proxy";
 import logger from "@app/utils/logger"
 import {inDev} from "@app/utils/dev";
@@ -44,7 +43,6 @@ const createWindow = (): void => {
     }
 
     logger.debug("starting proxy");
-    startServer();
     startProxy((error, port) => {
         if (error?.message?.includes('EADDRINUSE')) {
             mainWindow.webContents.send('proxy-port-already-in-use', port);
