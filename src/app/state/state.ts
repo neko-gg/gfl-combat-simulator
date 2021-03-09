@@ -6,6 +6,7 @@ import {EchelonListPosition} from "@app/model/EchelonListPosition";
 import Fairy from "@app/model/Fairy";
 import FairyInEchelon from "@app/model/FairyInEchelon";
 import {NodeBelongsTo} from "@app/model/NodeBelongsTo";
+import {StrategyFairySkillInfoPacket} from "@app/model/StrategyFairySkill";
 
 
 export default class State {
@@ -31,6 +32,7 @@ export default class State {
     private _isDay = true;
     private _proxyPort = 9002;
     private _nodeBelongsTo = NodeBelongsTo.WHITE;
+    private _fairySkillsOnTeam: StrategyFairySkillInfoPacket | [] = [];
 
     get echelon(): Echelon {
         return this._echelon;
@@ -70,6 +72,14 @@ export default class State {
 
     set nodeBelongsTo(value: NodeBelongsTo) {
         this._nodeBelongsTo = value;
+    }
+
+    get fairySkillsOnTeam(): StrategyFairySkillInfoPacket | [] {
+        return this._fairySkillsOnTeam;
+    }
+
+    set fairySkillsOnTeam(value: StrategyFairySkillInfoPacket | []) {
+        this._fairySkillsOnTeam = value;
     }
 
 }
