@@ -9,6 +9,7 @@ import TDoll from "@app/model/TDoll";
 import Equip from "@app/model/Equip";
 import Fairy from "@app/model/Fairy";
 import {NodeBelongsTo} from "@app/model/NodeBelongsTo";
+import {StrategyFairySkillInfoPacket} from "@app/model/StrategyFairySkill";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -106,4 +107,8 @@ ipcMain.on('proxy-port-updated', (event, arg: number) => {
 
 ipcMain.on('node-belongs-to-updated', (event, arg: NodeBelongsTo) => {
     state.Instance.nodeBelongsTo = arg;
+});
+
+ipcMain.on('fairy-skill-on-team-updated', (event, arg: StrategyFairySkillInfoPacket | undefined) => {
+    state.Instance.fairySkillsOnTeam = arg || [];
 });

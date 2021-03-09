@@ -70,6 +70,7 @@ export const startProxy = (onError: (error: Error, port: number) => void = () =>
             const enemyTeamId = state.Instance.enemyTeamId;
             const isDay = state.Instance.isDay;
             const nodeBelongsTo = state.Instance.nodeBelongsTo;
+            const fairySkillsOnTeam = state.Instance.fairySkillsOnTeam;
 
             const templateIndexPacket = fs.readFileSync(getStaticPath(path.join('packet', 'index.tjson')), 'utf8');
             const indexPacket = templateIndexPacket.replace(/\${signUpTime}/g, signUpTime)
@@ -118,12 +119,15 @@ export const startProxy = (onError: (error: Error, port: number) => void = () =>
             const spotActInfoJson = JSON.parse(spotActInfo);
             indexPacketJson.spot_act_info = spotActInfoJson;
 
+            const fairySkillsOnTeamJson = JSON.stringify(JSON.stringify(fairySkillsOnTeam)); // bruh
             type MissionActInfoSpotElement = { "spot_id": string }
             type MissionActInfoSpotAccumulator = { [key in string]: MissionActInfoSpotElement }
             const templateMissionActInfo = fs.readFileSync(getStaticPath(path.join('packet', isDay ? 'mission_act_info.tjson' : 'mission_act_info_night.tjson')), 'utf8');
             const missionActInfo = templateMissionActInfo.replace(/\${userId}/g, `${userId}`)
-                                                         .replace(/\${enemyTeamId}/g, `${enemyTeamId}`);
+                                                         .replace(/\${enemyTeamId}/g, `${enemyTeamId}`)
+                                                         .replace(/\${fairySkillsOnTeam}/g, fairySkillsOnTeamJson);
             const missionActInfoJson = JSON.parse(missionActInfo);
+
             const missionActInfoSpot = spotActInfoJson.reduce((accumulator: MissionActInfoSpotAccumulator, current: MissionActInfoSpotElement) => {
                 accumulator[current.spot_id] = current;
                 return accumulator;
