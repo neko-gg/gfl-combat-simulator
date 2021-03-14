@@ -7,9 +7,9 @@
   "scripts": {
     "test": "cross-env NON_WEBPACK_PATH=1 mocha -r ts-node/register -r tsconfig-paths/register 'tests/**/*.ts'",
     "start": "cross-env NODE_ENV=development electron-forge start",
-    "update-stc": "cross-env NON_WEBPACK_PATH=1 ts-node src/app/data/StcUpdater.ts",
-    "update-resources": "cross-env NON_WEBPACK_PATH=1 ts-node src/app/data/ResourcesUpdater.ts",
-    "update-assets": "cross-env NON_WEBPACK_PATH=1 ts-node src/app/data/AssetsUpdater.ts",
+    "update-stc": "cross-env NON_WEBPACK_PATH=1 ts-node -r tsconfig-paths/register src/app/data/StcUpdater.ts",
+    "update-resources": "cross-env NON_WEBPACK_PATH=1 ts-node -r tsconfig-paths/register src/app/data/ResourcesUpdater.ts",
+    "update-assets": "cross-env NON_WEBPACK_PATH=1 ts-node -r tsconfig-paths/register src/app/data/AssetsUpdater.ts",
     "log-packets": "cross-env NON_WEBPACK_PATH=1 ts-node -r tsconfig-paths/register src/app/data/PacketLogger.ts",
     "package": "electron-forge package",
     "make": "electron-forge make",
