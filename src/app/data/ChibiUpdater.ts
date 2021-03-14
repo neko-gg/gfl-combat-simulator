@@ -3,7 +3,7 @@ import path from "path";
 import {toByteArray} from "base64-js";
 import {createDir} from "./WriterUtils";
 import fs from "fs";
-import { timeout } from 'promise-timeout';
+import {timeout} from 'promise-timeout';
 
 async function trySpineToPng(browser: Browser, basePath: string, spineDir: string): Promise<void> {
     const page = await browser.newPage();

@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/echelon-list-element.less'
 import '../styles/echelon-list-doll-class.less'
-import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Tooltip, TooltipProps} from "@material-ui/core";
+import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Tooltip} from "@material-ui/core";
 import TDoll from "@app/model/TDoll";
 import slash from "slash";
 import Equip from "@app/model/Equip";
