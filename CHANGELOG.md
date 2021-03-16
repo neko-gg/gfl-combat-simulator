@@ -2,6 +2,10 @@
 
 All notable changes to GFL Combat Simulator.
 
+### 0.4.1
+- 🐛 Fix HOC out of range at night
+
+
 ### 0.4
 - ✨ HOCs
 
