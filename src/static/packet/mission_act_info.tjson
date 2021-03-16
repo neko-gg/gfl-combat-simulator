@@ -12,7 +12,7 @@
     "team_effect":"",
     "died_ally_type":"{\"1\":0,\"2\":0,\"0\":0}",
     "mysquad_die_num":"0",
-    "squad_info":"[]",
+    "squad_info":"${squadInfoInMission}",
     "get_guns":"",
     "reinforce_teams":"1",
     "gundie_num":"0",

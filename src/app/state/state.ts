@@ -7,10 +7,10 @@ import Fairy from "@app/model/Fairy";
 import FairyInEchelon from "@app/model/FairyInEchelon";
 import {NodeBelongsTo} from "@app/model/NodeBelongsTo";
 import {StrategyFairySkillInfoPacket} from "@app/model/StrategyFairySkill";
+import HOC from "@app/model/HOC";
 
 
 export default class State {
-
     private static _instance: State;
 
     private constructor() {
@@ -33,6 +33,7 @@ export default class State {
     private _proxyPort = 9002;
     private _nodeBelongsTo = NodeBelongsTo.WHITE;
     private _fairySkillsOnTeam: StrategyFairySkillInfoPacket | [] = [];
+    private _hocs: HOC[] = [];
 
     get echelon(): Echelon {
         return this._echelon;
@@ -80,6 +81,14 @@ export default class State {
 
     set fairySkillsOnTeam(value: StrategyFairySkillInfoPacket | []) {
         this._fairySkillsOnTeam = value;
+    }
+
+    get hocs(): HOC[] {
+        return this._hocs;
+    }
+
+    set hocs(value: HOC[]) {
+        this._hocs = value;
     }
 
 }

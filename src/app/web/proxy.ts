@@ -12,6 +12,8 @@ import state from "@app/state/state";
 import TDollInEchelon from "@app/model/TDollInEchelon";
 import Equip from "@app/model/Equip";
 import TDoll from "@app/model/TDoll";
+import {getSpotActInfo} from "@app/model/Battle";
+import {SquadInfoInMission} from "@app/model/HOC";
 
 const pipeSockets = (socketA: Socket, socketB: Socket) => {
     socketB.pipe(socketA);
@@ -71,6 +73,7 @@ export const startProxy = (onError: (error: Error, port: number) => void = () =>
             const isDay = state.Instance.isDay;
             const nodeBelongsTo = state.Instance.nodeBelongsTo;
             const fairySkillsOnTeam = state.Instance.fairySkillsOnTeam;
+            const hocs = state.Instance.hocs;
 
             const templateIndexPacket = fs.readFileSync(getStaticPath(path.join('packet', 'index.tjson')), 'utf8');
             const indexPacket = templateIndexPacket.replace(/\${signUpTime}/g, signUpTime)
@@ -112,23 +115,28 @@ export const startProxy = (onError: (error: Error, port: number) => void = () =>
 
             indexPacketJson.fairy_with_user_info = JSON.parse(fairyWithUserInfo);
 
-            const templateSpotActInfo = fs.readFileSync(getStaticPath(path.join('packet', isDay ? 'spot_act_info.tjson' : 'spot_act_info_night.tjson')), 'utf8');
-            const spotActInfo = templateSpotActInfo.replace(/\${enemyTeamId}/g, `${enemyTeamId}`)
-                                                   .replace(/\${spotSeed}/g, fairyInEchelon?.talentTriggers ? '146' : '56')
-                                                   .replace(/\${nodeBelongsTo}/g, `${nodeBelongsTo}`);
-            const spotActInfoJson = JSON.parse(spotActInfo);
-            indexPacketJson.spot_act_info = spotActInfoJson;
+            const spotActInfo = getSpotActInfo(isDay, enemyTeamId, nodeBelongsTo, fairyInEchelon?.talentTriggers ? 146 : 56, hocs);
+            indexPacketJson.spot_act_info = spotActInfo;
 
+            indexPacketJson.squad_with_user_info = hocs.length ? hocs.map(hoc => hoc.squadWithUserInfo())
+                                                                     .reduce((accumulator, current) => ({...accumulator, ...current}), {})
+                                                               : [];
+
+            const squadInfoInMission: SquadInfoInMission | [] = hocs.length ? hocs.map(hoc => hoc.squadInfoInMission())
+                                                                                  .reduce((accumulator, current) => ({...accumulator, ...current}), {})
+                                                                            : [];
+            const squadInfoInMissionJson = JSON.stringify(squadInfoInMission).replace(/["]/g, '\\"');
             const fairySkillsOnTeamJson = JSON.stringify(JSON.stringify(fairySkillsOnTeam)); // bruh
             type MissionActInfoSpotElement = { "spot_id": string }
             type MissionActInfoSpotAccumulator = { [key in string]: MissionActInfoSpotElement }
             const templateMissionActInfo = fs.readFileSync(getStaticPath(path.join('packet', isDay ? 'mission_act_info.tjson' : 'mission_act_info_night.tjson')), 'utf8');
             const missionActInfo = templateMissionActInfo.replace(/\${userId}/g, `${userId}`)
                                                          .replace(/\${enemyTeamId}/g, `${enemyTeamId}`)
+                                                         .replace(/\${squadInfoInMission}/g, squadInfoInMissionJson)
                                                          .replace(/\${fairySkillsOnTeam}/g, fairySkillsOnTeamJson);
             const missionActInfoJson = JSON.parse(missionActInfo);
 
-            const missionActInfoSpot = spotActInfoJson.reduce((accumulator: MissionActInfoSpotAccumulator, current: MissionActInfoSpotElement) => {
+            const missionActInfoSpot = spotActInfo.reduce((accumulator: MissionActInfoSpotAccumulator, current: MissionActInfoSpotElement) => {
                 accumulator[current.spot_id] = current;
                 return accumulator;
             }, {});

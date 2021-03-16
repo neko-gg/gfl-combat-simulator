@@ -12,6 +12,7 @@ import Battle from "@app/components/Battle";
 import SettingsIcon from '@material-ui/icons/Settings';
 import Settings from "@app/components/Settings";
 import {NodeBelongsTo} from "@app/model/NodeBelongsTo";
+import HOC from "@app/components/HOC";
 
 interface AppState {
     echelon: Echelon;
@@ -77,6 +78,7 @@ class App extends React.Component<unknown, AppState> {
                 <Tabs value={this.state.tabIndex} onChange={this.changeTab} variant="fullWidth">
                     <Tab label="Echelon"/>
                     <Tab label="Enemy"/>
+                    <Tab label="HOC"/>
                     <Tab label="Battle"/>
                     <Tab className="settings-tab-icon" icon={<SettingsIcon/>}/>
                 </Tabs>
@@ -89,9 +91,12 @@ class App extends React.Component<unknown, AppState> {
                 <EchelonEnemy enemyTeamId={this.state.enemyTeamId} updateEnemyTeam={this.updateEnemyTeam}/>
             </TabPanel>
             <TabPanel index={2} value={this.state.tabIndex}>
-                <Battle isDay={this.state.isDay} setIsDay={this.setIsDay} nodeBelongsTo={this.state.nodeBelongsTo} setNodeBelongsTo={this.setNodeBelongsTo}/>
+                <HOC/>
             </TabPanel>
             <TabPanel index={3} value={this.state.tabIndex}>
+                <Battle isDay={this.state.isDay} setIsDay={this.setIsDay} nodeBelongsTo={this.state.nodeBelongsTo} setNodeBelongsTo={this.setNodeBelongsTo}/>
+            </TabPanel>
+            <TabPanel index={4} value={this.state.tabIndex}>
                 <Settings proxyPort={this.state.proxyPort} setProxyPort={this.setProxyPort}/>
             </TabPanel>
         </>
