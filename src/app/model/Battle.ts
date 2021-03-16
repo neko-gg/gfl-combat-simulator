@@ -60,7 +60,7 @@ function getDaySpotActInfo(enemyTeamId: number, nodeBelongsTo: NodeBelongsTo, se
 
 function getNightSpotActInfo(enemyTeamId: number, nodeBelongsTo: NodeBelongsTo, seed: number, hocs: HOC[] = []): SpotActInfo[] {
     const spotIds = [1308, 1309, 1310, 1348, 1349, 1350, 1351, 1352, 1353];
-    const hocSpotIds = [1308, 1309, 1310, 1348, 1350, 1351, 1352, 1353]
+    const hocSpotIds = [1308, 1309, 1310, 1348, 1351, 1352, 1353]
     const fightSpotId = 1349;
 
     return mapSpotActInfo(spotIds, hocs, hocSpotIds, fightSpotId, enemyTeamId, nodeBelongsTo, seed);
