@@ -154,9 +154,9 @@ export default class TDoll {
     name(): string | undefined {
         const gunInfo = this.findFromGunInfo();
         const gunInfoNameCode = gunInfo?.name;
-        if (!gunInfoNameCode) return gunInfo?.en_name;
-
-        return getAssetTDoll(gunInfoNameCode);
+        const assetName = getAssetTDoll(gunInfoNameCode);
+        if (!assetName || assetName.trim() === '') return gunInfo?.en_name;
+        return assetName;
     }
 
     rarity(): Rarity | undefined {
