@@ -1,5 +1,4 @@
 import {app, BrowserWindow, ipcMain, protocol} from 'electron';
-import {startServer} from '@app/web/server'
 import {changePort, startProxy} from "@app/web/proxy";
 import logger from "@app/utils/logger"
 import {inDev} from "@app/utils/dev";
@@ -10,6 +9,7 @@ import Equip from "@app/model/Equip";
 import Fairy from "@app/model/Fairy";
 import {NodeBelongsTo} from "@app/model/NodeBelongsTo";
 import {StrategyFairySkillInfoPacket} from "@app/model/StrategyFairySkill";
+import HOC from "@app/model/HOC";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -44,7 +44,6 @@ const createWindow = (): void => {
     }
 
     logger.debug("starting proxy");
-    startServer();
     startProxy((error, port) => {
         if (error?.message?.includes('EADDRINUSE')) {
             mainWindow.webContents.send('proxy-port-already-in-use', port);
@@ -112,3 +111,8 @@ ipcMain.on('node-belongs-to-updated', (event, arg: NodeBelongsTo) => {
 ipcMain.on('fairy-skill-on-team-updated', (event, arg: StrategyFairySkillInfoPacket | undefined) => {
     state.Instance.fairySkillsOnTeam = arg || [];
 });
+
+ipcMain.on('hocs-updated', (event, arg: HOC[]) => {
+    state.Instance.hocs = arg.map(hoc => Object.assign(HOC.clone(hoc), hoc));
+});
+

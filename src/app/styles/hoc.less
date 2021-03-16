@@ -1,0 +1,67 @@
+@import './variables.less';
+
+.hoc-list-form-control {
+  width: 100%;
+}
+
+.hoc-list-item-label.MuiFormLabel-root {
+  font-size: @text-small;
+}
+
+.hoc-list-item-table {
+  margin-top: @padding-fourth;
+  white-space: nowrap;
+  overflow-y: hidden;
+}
+
+.hoc-sticky-column {
+  position: sticky;
+  left: 0;
+  background: white;
+  z-index: 1;
+}
+
+.hoc-sticky-column.MuiTableCell-sizeSmall.MuiTableCell-paddingCheckbox {
+  width: @hoc-select-checkbox-cell-width;
+  min-width: @hoc-select-checkbox-cell-width;
+  max-width: @hoc-select-checkbox-cell-width;
+  padding-left: @padding-normal;
+  padding-right: unset;
+}
+
+.hoc-sticky-column-2 {
+  position: sticky;
+  left: @hoc-select-checkbox-cell-left-sticky;
+  background: white;
+  z-index: 1;
+}
+
+.hoc-select.MuiInput-root {
+  height: @hoc-select-height;
+  width: @hoc-select-width;
+}
+
+.hoc-select .MuiSelect-icon {
+  display: none;
+}
+
+.hoc-select & .MuiSelect-select.MuiSelect-select {
+  font-size: @text-normal;
+  text-align: center;
+  padding-right: @padding-fourth;
+}
+
+.hoc-select & .MuiSelect-select:focus {
+  background-color: transparent
+}
+
+.hoc-virtualized-select {
+  width: 5rem;
+}
+
+.hoc-virtualized-select div {
+  border-color: unset;
+  border-radius: unset;
+  border-style: unset;
+  border-width: unset;
+}

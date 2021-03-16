@@ -1,7 +1,6 @@
 import equipInfo from "@static/stc/EquipInfo.json";
 import {EquipClass} from "@app/model/EquipClass";
 import {EquipType} from "@app/model/EquipType";
-import {getAssetTDoll} from "@app/model/asset/AssetTDoll";
 import {getStaticPath} from "@app/utils/static-loader";
 import EquipStats, {CurrentEquipStats, EquipStat} from "@app/model/EquipStats";
 import path from "path";

@@ -2,6 +2,10 @@
 
 All notable changes to GFL Combat Simulator.
 
+### 0.4
+- ✨ HOCs
+
+
 ### 0.3
 - ✨ Strategy fairy buffs ∕ debuffs on echelon
 

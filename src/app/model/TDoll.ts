@@ -17,7 +17,7 @@ import {EquipType} from "@app/model/EquipType";
 import Equip from "@app/model/Equip";
 import {CurrentEquipStats} from "@app/model/EquipStats";
 import FairyStats from "@app/model/FairyStats";
-import {ceil, floor, round} from "@app/utils/math";
+import {ceil, floor} from "@app/utils/math";
 
 export default class TDoll {
     private readonly _modOffset = 20_000;
@@ -154,9 +154,9 @@ export default class TDoll {
     name(): string | undefined {
         const gunInfo = this.findFromGunInfo();
         const gunInfoNameCode = gunInfo?.name;
-        if (!gunInfoNameCode) return gunInfo?.en_name;
-
-        return getAssetTDoll(gunInfoNameCode);
+        const assetName = getAssetTDoll(gunInfoNameCode);
+        if (!assetName || assetName.trim() === '') return gunInfo?.en_name;
+        return assetName;
     }
 
     rarity(): Rarity | undefined {

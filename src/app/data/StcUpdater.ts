@@ -15,6 +15,15 @@ import {getStaticPath} from "../utils/static-loader";
 import {updateStcEnemyInTeam} from "./StcEnemyInTeamUpdater";
 import {updateStcEnemyCharacterType} from "./StcEnemyCharacterTypeUpdater";
 import {updateStcEnemyStandardAttribute} from "./StcEnemyStandardAttributeUpdater";
+import {updateStcSquad} from "@app/data/StcSquadUpdater";
+import {updateStcSquadStandardAttribution} from "@app/data/StcSquadStandardAttributionUpdater";
+import {updateStcSquadType} from "@app/data/StcSquadTypeUpdater";
+import {updateStcSquadRank} from "@app/data/StcSquadRankUpdater";
+import {updateStcSquadCpuCompletion} from "@app/data/StcSquadCpuCompletionUpdater";
+import {updateStcSquadCpu} from "@app/data/StcSquadCpuUpdater";
+import {updateStcSquadGrid} from "@app/data/StcSquadGridUpdater";
+import {updateStcSquadAdvancedBonus} from "@app/data/StcSquadAdvancedBonusUpdater";
+import {updateStcSquadExp} from "@app/data/StcSquadExpUpdater";
 
 async function getDataVersion(): Promise<string> {
     const versionFormData = new FormData();
@@ -71,6 +80,15 @@ async function getStcZipFileName(dataVersion: string): Promise<string> {
     await updateStcEnemyStandardAttribute(extractDir, outputDir);
     await updateStcEquip(extractDir, outputDir);
     await updateStcFairy(extractDir, outputDir);
+    await updateStcSquad(extractDir, outputDir);
+    await updateStcSquadStandardAttribution(extractDir, outputDir);
+    await updateStcSquadType(extractDir, outputDir);
+    await updateStcSquadRank(extractDir, outputDir);
+    await updateStcSquadCpuCompletion(extractDir, outputDir);
+    await updateStcSquadCpu(extractDir, outputDir);
+    await updateStcSquadGrid(extractDir, outputDir);
+    await updateStcSquadAdvancedBonus(extractDir, outputDir);
+    await updateStcSquadExp(extractDir, outputDir);
 
     const catchDataPath = path.resolve(tempDirPath, 'stc', 'catchdata.dat');
     const catchDataOutputDir = path.resolve(outputDir, 'catchdata');
