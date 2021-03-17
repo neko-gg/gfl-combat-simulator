@@ -193,4 +193,4 @@ class Battle extends React.Component<BattleProps, BattleState> {
 
 }
 
-export default hot(module)(Battle);
+export default hot(module)(React.memo(Battle));

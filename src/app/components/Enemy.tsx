@@ -28,6 +28,8 @@ class EchelonEnemy extends React.Component<EchelonEnemyProps> {
         return {value: enemyTeamId, label: `${enemyTeamId || 0}${enemyLeaderSuffix}`};
     }
 
+    enemiesSelectOptions = Object.keys(enemyInTeams).map(enemyTeamId => this.toOption(Number.parseInt(enemyTeamId)));
+
     render(): JSX.Element {
         const enemiesInTeam = enemyInTeams[this.props.enemyTeamId];
         return (
@@ -39,7 +41,7 @@ class EchelonEnemy extends React.Component<EchelonEnemyProps> {
                                 value={this.toOption(this.props.enemyTeamId)}
                                 isClearable={false}
                                 onChange={(event: { value: string }) => this.updateEnemyTeam(Number.parseInt(event?.value))}
-                                options={Object.keys(enemyInTeams).map(enemyTeamId => this.toOption(Number.parseInt(enemyTeamId)))}/>
+                                options={this.enemiesSelectOptions}/>
                     </FormControl>
                 </ListItem>
                 <ListItem>
@@ -176,4 +178,4 @@ class EchelonEnemy extends React.Component<EchelonEnemyProps> {
     }
 }
 
-export default hot(module)(EchelonEnemy);
+export default hot(module)(React.memo(EchelonEnemy));

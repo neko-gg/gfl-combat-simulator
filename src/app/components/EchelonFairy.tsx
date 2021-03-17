@@ -191,4 +191,4 @@ class EchelonFairy extends React.Component<EchelonFairyProps, EchelonFairyState>
     }
 }
 
-export default hot(module)(EchelonFairy);
+export default hot(module)(React.memo(EchelonFairy));
