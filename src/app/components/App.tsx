@@ -13,6 +13,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import Settings from "@app/components/Settings";
 import {NodeBelongsTo} from "@app/model/NodeBelongsTo";
 import HOC from "@app/components/HOC";
+import SwipeableViews from 'react-swipeable-views';
 
 interface AppState {
     echelon: Echelon;
@@ -83,22 +84,26 @@ class App extends React.Component<unknown, AppState> {
                     <Tab className="settings-tab-icon" icon={<SettingsIcon/>}/>
                 </Tabs>
             </AppBar>
-            <TabPanel index={0} value={this.state.tabIndex}>
-                <EchelonGrid echelon={this.state.echelon} updateEchelon={this.updateEchelon}/>
-                <EchelonListFairy echelon={this.state.echelon} updateEchelon={this.updateEchelon}/>
-            </TabPanel>
-            <TabPanel index={1} value={this.state.tabIndex}>
-                <EchelonEnemy enemyTeamId={this.state.enemyTeamId} updateEnemyTeam={this.updateEnemyTeam}/>
-            </TabPanel>
-            <TabPanel index={2} value={this.state.tabIndex}>
-                <HOC/>
-            </TabPanel>
-            <TabPanel index={3} value={this.state.tabIndex}>
-                <Battle isDay={this.state.isDay} setIsDay={this.setIsDay} nodeBelongsTo={this.state.nodeBelongsTo} setNodeBelongsTo={this.setNodeBelongsTo}/>
-            </TabPanel>
-            <TabPanel index={4} value={this.state.tabIndex}>
-                <Settings proxyPort={this.state.proxyPort} setProxyPort={this.setProxyPort}/>
-            </TabPanel>
+            <SwipeableViews axis="x"
+                            index={this.state.tabIndex}
+                            onChangeIndex={index => this.changeTab(undefined, index)}>
+                <TabPanel index={0} value={this.state.tabIndex}>
+                    <EchelonGrid echelon={this.state.echelon} updateEchelon={this.updateEchelon}/>
+                    <EchelonListFairy echelon={this.state.echelon} updateEchelon={this.updateEchelon}/>
+                </TabPanel>
+                <TabPanel index={1} value={this.state.tabIndex}>
+                    <EchelonEnemy enemyTeamId={this.state.enemyTeamId} updateEnemyTeam={this.updateEnemyTeam}/>
+                </TabPanel>
+                <TabPanel index={2} value={this.state.tabIndex}>
+                    <HOC/>
+                </TabPanel>
+                <TabPanel index={3} value={this.state.tabIndex}>
+                    <Battle isDay={this.state.isDay} setIsDay={this.setIsDay} nodeBelongsTo={this.state.nodeBelongsTo} setNodeBelongsTo={this.setNodeBelongsTo}/>
+                </TabPanel>
+                <TabPanel index={4} value={this.state.tabIndex}>
+                    <Settings proxyPort={this.state.proxyPort} setProxyPort={this.setProxyPort}/>
+                </TabPanel>
+            </SwipeableViews>
         </>
     }
 }
