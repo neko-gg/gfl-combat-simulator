@@ -140,4 +140,4 @@ class EchelonListElement extends React.Component<EchelonListElementProps, Echelo
 
 }
 
-export default hot(module)(EchelonListElement);
+export default hot(module)(React.memo(EchelonListElement));

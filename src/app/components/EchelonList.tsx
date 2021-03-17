@@ -1,11 +1,13 @@
 import React from 'react';
 import {hot} from 'react-hot-loader';
 import '../styles/echelon-list.less'
-import {DragDropContext, Draggable, Droppable, DropResult} from 'react-beautiful-dnd';
 import EchelonListElement from "@app/components/EchelonListElement";
 import logger from "@app/utils/logger";
 import {EchelonListPosition} from "@app/model/EchelonListPosition";
 import Echelon from "@app/model/Echelon";
+import ReactDragListView from 'react-drag-listview';
+
+const {DragColumn} = ReactDragListView;
 
 interface EchelonListProps {
     echelon: Echelon;
@@ -23,14 +25,12 @@ class EchelonList extends React.Component<EchelonListProps> {
         this.props.updateEchelon();
     }
 
-    onDragEnd(result: DropResult) {
-        if (!result.destination) {
+    onDragEnd(sourceIndex: number, targetIndex: number) {
+        if (targetIndex < 0) {
             logger.silly('echelon list: dragged outside list area; skipping');
             return;
         }
 
-        const sourceIndex = result.source.index;
-        const targetIndex = result.destination.index;
         logger.silly(`echelon list: dragged from ${EchelonListPosition[sourceIndex]} to ${EchelonListPosition[targetIndex]}`);
 
         const tDollsInEchelon = [...this.props.echelon.tDollsInEchelon];
@@ -47,33 +47,23 @@ class EchelonList extends React.Component<EchelonListProps> {
 
     render(): JSX.Element {
         return (
-            <DragDropContext onDragEnd={this.onDragEnd}>
-                <Droppable droppableId="droppable" direction="horizontal">
-                    {(provided) => (
-                        <div ref={provided.innerRef} className="echelon-list-container" {...provided.droppableProps}>
-                            {[...this.props
-                                .echelon
-                                .tDollsInEchelon]
-                                .map((tDollInEchelon, index) => ({originalIndex: index, tDollInEchelon: tDollInEchelon}))
-                                .sort((a, b) => a.tDollInEchelon.listPosition - b.tDollInEchelon.listPosition)
-                                .map((tDollInEchelonWithIndex, index) => (
-                                    <Draggable key={tDollInEchelonWithIndex.originalIndex} draggableId={tDollInEchelonWithIndex.originalIndex.toString()} index={index}>
-                                        {(provided) => (
-                                            <div ref={provided.innerRef}
-                                                 className={"echelon-list-item"}
-                                                 {...provided.draggableProps}
-                                                 {...provided.dragHandleProps}
-                                                 style={provided.draggableProps.style}>
-                                                <EchelonListElement tDollInEchelon={tDollInEchelonWithIndex.tDollInEchelon} fairy={this.props.echelon.fairyInEchelon?.fairy} updateTDollInEchelon={this.updateTDollInEchelon}/>
-                                            </div>
-                                        )}
-                                    </Draggable>
-                                ))}
-                            {provided.placeholder}
-                        </div>
-                    )}
-                </Droppable>
-            </DragDropContext>
+            <div className="echelon-list-container">
+                <DragColumn onDragEnd={this.onDragEnd}
+                            nodeSelector=".echelon-list-item"
+                            handleSelector=".echelon-list-item">
+                    {[...this.props
+                        .echelon
+                        .tDollsInEchelon]
+                        .map((tDollInEchelon, index) => ({originalIndex: index, tDollInEchelon: tDollInEchelon}))
+                        .sort((a, b) => a.tDollInEchelon.listPosition - b.tDollInEchelon.listPosition)
+                        .map((tDollInEchelonWithIndex) => (
+                            <div key={tDollInEchelonWithIndex.originalIndex}
+                                 className={"echelon-list-item"}>
+                                <EchelonListElement tDollInEchelon={tDollInEchelonWithIndex.tDollInEchelon} fairy={this.props.echelon.fairyInEchelon?.fairy} updateTDollInEchelon={this.updateTDollInEchelon}/>
+                            </div>
+                        ))}
+                </DragColumn>
+            </div>
         );
     }
 }

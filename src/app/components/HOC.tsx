@@ -157,4 +157,4 @@ class HOC extends React.Component<unknown, HOCState> {
 
 }
 
-export default hot(module)(HOC);
+export default hot(module)(React.memo(HOC));

@@ -2,6 +2,13 @@
 
 All notable changes to GFL Combat Simulator.
 
+### 0.5
+- 🎨 Swipeable tab panels
+- 🎨 Change drag and drop list
+- ⚡️ Improve performance
+- 🐛 Fix T-Doll formation grid dropping zone
+
+
 ### 0.4.1
 - 🐛 Fix HOC out of range at night
 

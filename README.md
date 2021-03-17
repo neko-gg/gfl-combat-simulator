@@ -1,13 +1,14 @@
 # GFL Combat Simulator
 
 A proxy-based battle simulator for Girls' Frontline.
-<img src="https://i.imgur.com/pKRLqew.png" width="640" />
+<img src="https://i.imgur.com/RGnNxhG.png" width="640" />
 
 ## Core Features
 
 - 🌎 Global (EN) client
 - 🎎 Customize any T-Doll
 - ⚙ Choose any equipment
+- 💣 Use any HOC
 - 🔢 Stats preview
 - 🧮 Combat Efficiency for allies and enemies 
 - 👾 Preview enemy team composition
