@@ -20,15 +20,18 @@ class EchelonGrid extends React.Component<EchelonGridProps> {
 
     onDragEnd = (sourcePosition: EchelonGridPosition, x: number, y: number) => {
         const targetPosition: EchelonGridPosition = this.cellRefs.findIndex(cellRef => {
-            const scrollX = window.pageXOffset;
-            const scrollY = window.pageYOffset;
+            const scrollX = window.scrollX;
+            const scrollY = window.scrollY;
 
-            const cellX = cellRef.current.offsetLeft;
-            const cellY = cellRef.current.offsetTop;
-            const width = cellRef.current.offsetWidth;
-            const height = cellRef.current.offsetHeight;
+            const cellX = cellRef.current.getBoundingClientRect().left + scrollX;
+            const cellY = cellRef.current.getBoundingClientRect().top + scrollY;
+            const width = cellRef.current.getBoundingClientRect().width;
+            const height = cellRef.current.getBoundingClientRect().height;
 
-            return x > cellX - scrollX && x < cellX + width - scrollX && y > cellY - scrollY && y < cellY + height - scrollY;
+            const targetX = x + scrollX;
+            const targetY = y + scrollY;
+
+            return targetX > cellX && targetX < cellX + width && targetY > cellY && targetY < cellY + height;
         });
 
         if (targetPosition < 0) {
