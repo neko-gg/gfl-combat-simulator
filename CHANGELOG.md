@@ -2,6 +2,10 @@
 
 All notable changes to GFL Combat Simulator.
 
+### 0.5.1
+- ⬆️Update assets
+
+
 ### 0.5
 - 🎨 Swipeable tab panels
 - 🎨 Change drag and drop list

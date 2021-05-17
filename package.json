@@ -1,7 +1,7 @@
 {
   "name": "gfl-combat-simulator",
   "productName": "GFL Combat Simulator",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "A proxy-based combat simulator for Girls' Frontline.",
   "main": ".webpack/main",
   "scripts": {
