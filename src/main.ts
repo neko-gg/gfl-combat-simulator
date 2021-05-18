@@ -91,8 +91,9 @@ ipcMain.on('echelon-updated', (event, arg: Echelon) => {
     state.Instance.echelon = arg;
 });
 
-ipcMain.on('enemy-updated', (event, arg: number) => {
-    state.Instance.enemyTeamId = arg;
+ipcMain.on('enemy-updated', (event, arg: { enemyTeamId: number, enemyBossHp: number }) => {
+    state.Instance.enemyTeamId = arg.enemyTeamId;
+    state.Instance.enemyBossHp = arg.enemyBossHp;
 });
 
 ipcMain.on('is-day-updated', (event, arg: boolean) => {
@@ -110,6 +111,10 @@ ipcMain.on('node-belongs-to-updated', (event, arg: NodeBelongsTo) => {
 
 ipcMain.on('fairy-skill-on-team-updated', (event, arg: StrategyFairySkillInfoPacket | undefined) => {
     state.Instance.fairySkillsOnTeam = arg || [];
+});
+
+ipcMain.on('fairy-skill-on-enemy-updated', (event, arg: StrategyFairySkillInfoPacket | undefined) => {
+    state.Instance.fairySkillsOnEnemy = arg || [];
 });
 
 ipcMain.on('hocs-updated', (event, arg: HOC[]) => {

@@ -70,9 +70,11 @@ export const startProxy = (onError: (error: Error, port: number) => void = () =>
             const fairyInEchelon = echelon.fairyInEchelon;
             const fairy = fairyInEchelon?.fairy;
             const enemyTeamId = state.Instance.enemyTeamId;
+            const enemyBossHp = state.Instance.enemyBossHp;
             const isDay = state.Instance.isDay;
             const nodeBelongsTo = state.Instance.nodeBelongsTo;
             const fairySkillsOnTeam = state.Instance.fairySkillsOnTeam;
+            const fairySkillsOnEnemy = state.Instance.fairySkillsOnEnemy;
             const hocs = state.Instance.hocs;
 
             const templateIndexPacket = fs.readFileSync(getStaticPath(path.join('packet', 'index.tjson')), 'utf8');
@@ -127,13 +129,17 @@ export const startProxy = (onError: (error: Error, port: number) => void = () =>
                                                                             : [];
             const squadInfoInMissionJson = JSON.stringify(squadInfoInMission).replace(/["]/g, '\\"');
             const fairySkillsOnTeamJson = JSON.stringify(JSON.stringify(fairySkillsOnTeam)); // bruh
+            const fairySkillsOnEnemyJson = JSON.stringify(JSON.stringify(fairySkillsOnEnemy)); // bruh x2
             type MissionActInfoSpotElement = { "spot_id": string }
             type MissionActInfoSpotAccumulator = { [key in string]: MissionActInfoSpotElement }
             const templateMissionActInfo = fs.readFileSync(getStaticPath(path.join('packet', isDay ? 'mission_act_info.tjson' : 'mission_act_info_night.tjson')), 'utf8');
             const missionActInfo = templateMissionActInfo.replace(/\${userId}/g, `${userId}`)
                                                          .replace(/\${enemyTeamId}/g, `${enemyTeamId}`)
+                                                         .replace(/\${bossHp}/g, `${enemyBossHp}`)
                                                          .replace(/\${squadInfoInMission}/g, squadInfoInMissionJson)
-                                                         .replace(/\${fairySkillsOnTeam}/g, fairySkillsOnTeamJson);
+                                                         .replace(/\${fairySkillsOnTeam}/g, fairySkillsOnTeamJson)
+                                                         .replace(/\${fairySkillsOnEnemy}/g, fairySkillsOnEnemyJson);
+
             const missionActInfoJson = JSON.parse(missionActInfo);
 
             const missionActInfoSpot = spotActInfo.reduce((accumulator: MissionActInfoSpotAccumulator, current: MissionActInfoSpotElement) => {
