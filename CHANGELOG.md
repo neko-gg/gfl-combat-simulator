@@ -2,8 +2,13 @@
 
 All notable changes to GFL Combat Simulator.
 
+### 0.6
+- ✨ Add enemy boss HP
+- ✨ Add EMP debuff
+
+
 ### 0.5.1
-- ⬆️Update assets
+- ⬆️ Update assets
 
 
 ### 0.5
