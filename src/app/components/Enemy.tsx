@@ -1,7 +1,7 @@
 import React from 'react';
 import {hot} from 'react-hot-loader';
 import '../styles/enemy.less'
-import {FormControl, InputLabel, List, ListItem, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@material-ui/core";
+import {FormControl, InputLabel, List, ListItem, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField} from "@material-ui/core";
 import Select from 'react-select-virtualized';
 import {enemyCharacterTypes, EnemyInTeam, enemyInTeams, enemyTeams} from "@app/model/EnemyTeam";
 import {enemies} from "@app/model/Enemy";
@@ -9,14 +9,29 @@ import {Scatter} from "react-chartjs-2";
 
 interface EchelonEnemyProps {
     enemyTeamId: number;
-    updateEnemyTeam: (enemyTeamId: number) => void;
+    updateEnemyTeam: (enemyTeamId: number, enemyBossHp: number) => void;
 }
 
-class EchelonEnemy extends React.Component<EchelonEnemyProps> {
+interface EchelonEnemyState {
+    enemyBossHp: number;
+}
 
-    updateEnemyTeam(enemyTeamId: number) {
+class EchelonEnemy extends React.Component<EchelonEnemyProps, EchelonEnemyState> {
+
+    readonly state: EchelonEnemyState = {
+        enemyBossHp: 0
+    };
+
+    constructor(props: Readonly<EchelonEnemyProps> | EchelonEnemyProps) {
+        super(props);
+        this.onBossHpChange = this.onBossHpChange.bind(this);
+    }
+
+    updateEnemyTeam(enemyTeamId: number, enemyBossHp: number | undefined = undefined) {
         if (!isNaN(enemyTeamId)) {
-            this.props.updateEnemyTeam(enemyTeamId);
+            const bossHp = enemyBossHp === undefined ? enemyCharacterTypes[enemyTeams[enemyTeamId].enemy_leader].boss_hp : enemyBossHp;
+            this.setState(() => ({enemyBossHp: bossHp}));
+            this.props.updateEnemyTeam(enemyTeamId, bossHp);
         }
     }
 
@@ -42,6 +57,14 @@ class EchelonEnemy extends React.Component<EchelonEnemyProps> {
                                 isClearable={false}
                                 onChange={(event: { value: string }) => this.updateEnemyTeam(Number.parseInt(event?.value))}
                                 options={this.enemiesSelectOptions}/>
+                    </FormControl>
+                </ListItem>
+                <ListItem>
+                    <FormControl className="enemy-list-item-form-control">
+                        <InputLabel className="enemy-list-item-input-label">Enemy Boss HP</InputLabel>
+                        <Paper className="enemy-list-item-text-field-paper">
+                            <TextField className="enemy-list-item-text-field" value={this.state.enemyBossHp} onChange={this.onBossHpChange}/>
+                        </Paper>
                     </FormControl>
                 </ListItem>
                 <ListItem>
@@ -175,6 +198,15 @@ class EchelonEnemy extends React.Component<EchelonEnemyProps> {
                 </ListItem>
             </List>
         );
+    }
+
+    private onBossHpChange(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
+        const parsedValue = Number.parseInt(event.target.value);
+        if (isNaN(parsedValue) || parsedValue < 0) {
+            return;
+        }
+
+        this.updateEnemyTeam(this.props.enemyTeamId, parsedValue);
     }
 }
 

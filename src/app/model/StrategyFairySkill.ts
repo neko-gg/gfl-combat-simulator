@@ -14,23 +14,33 @@ export interface StrategyFairySkillInfoPacket {
     [key: string]: { [key in string]: StrategyFairySkillInfo }
 }
 
-export class StrategyFairySkill {
-    static readonly PARACHUTE_DEBUFF = new StrategyFairySkill('Parachute Fairy debuff', '10086', '9');
-    static readonly SUEE_BUFF = new StrategyFairySkill('Suee buff', '1004', '1004');
-    static readonly CONSTRUCTION_BUFF = new StrategyFairySkill('Construction Fairy buff', '6', '12');
-    static readonly COMBO_BUFF = new StrategyFairySkill('Combo Fairy buff', '1700', '17', 3);
+export abstract class FairySkill {
+    readonly name: string;
+    readonly buffId: string;
+    readonly missionSkillConfigId: string;
+    readonly maxStacks: number;
+    readonly maxLevel: number;
 
-    private constructor(readonly name: string, private readonly buffId: string, private readonly missionSkillConfigId: string, readonly maxStacks = 0) {
+    constructor(name: string, buffId: string, missionSkillConfigId: string, maxStacks: number, maxLevel: number) {
+        this.name = name;
+        this.buffId = buffId;
+        this.missionSkillConfigId = missionSkillConfigId;
+        this.maxStacks = maxStacks;
+        this.maxLevel = maxLevel;
     }
 
-    private getMissionSkillConfigId(skillLevel: number) {
-        return `${this.missionSkillConfigId}${`${skillLevel}`.padStart(2, '0')}`;
+    getMissionSkillConfigId(skillLevel: number): string {
+        return `${this.missionSkillConfigId}`;
     }
 
-    private strategyFairySkillInfo(skillLevel: number, stack: number): StrategyFairySkillInfo {
+    getBuffId(stack: number): string {
+        return `${Number.parseInt(this.buffId)}`;
+    }
+
+    strategyFairySkillInfo(skillLevel: number, stack: number): StrategyFairySkillInfo {
         return {
             team_id: 1,
-            buff_id: `${Number.parseInt(this.buffId) + stack}`,
+            buff_id: this.getBuffId(stack),
             source_type: 1,
             source_value: 1,
             start_turn: '1',
@@ -44,6 +54,37 @@ export class StrategyFairySkill {
     getStrategyFairySkillWithIndex(skillLevel: number, stacks?: number): StrategyFairySkillInfo[] {
         return [...Array(stacks || 1).keys()].map(i => this.strategyFairySkillInfo(skillLevel, i));
     }
+}
 
+export class StrategyFairySkill extends FairySkill {
+    static readonly PARACHUTE_DEBUFF = new StrategyFairySkill('Parachute Fairy debuff', '10086', '9');
+    static readonly SUEE_BUFF = new StrategyFairySkill('Suee  buff', '1004', '1004');
+    static readonly CONSTRUCTION_BUFF = new StrategyFairySkill('Construction Fairy buff', '6', '12');
+    static readonly COMBO_BUFF = new StrategyFairySkill('Combo Fairy buff', '1700', '17', 3);
+
+    private constructor(readonly name: string,
+                        readonly buffId: string,
+                        readonly missionSkillConfigId: string,
+                        readonly maxStacks = 0) {
+        super(name, buffId, missionSkillConfigId, maxStacks, 10);
+    }
+
+    getMissionSkillConfigId(skillLevel: number): string {
+        return `${this.missionSkillConfigId}${`${skillLevel}`.padStart(2, '0')}`;
+    }
+
+    getBuffId(stack: number): string {
+        return `${Number.parseInt(this.buffId) + stack}`;
+    }
+}
+
+export class EnemyFairySkill extends FairySkill {
+    static readonly EMP = new EnemyFairySkill('EMP debuff', '1000001', '8120725');
+
+    private constructor(readonly name: string,
+                        readonly buffId: string,
+                        readonly missionSkillConfigId: string) {
+        super(name, buffId, missionSkillConfigId, 0, 0);
+    }
 }
 

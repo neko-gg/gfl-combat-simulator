@@ -63,7 +63,7 @@
     "fairy_skill_perform":"[]",
     "spots_change":"[]",
     "fairy_skill_on_friend_team":"[]",
-    "fairy_skill_on_enemy":"[]",
+    "fairy_skill_on_enemy":${fairySkillsOnEnemy},
     "friend_team_sangvises":"[]",
     "friend_team_sangvisteams":"[]",
     "sangvis_teams_info":"[]",
@@ -74,5 +74,5 @@
     "turn":"1",
     "died_ally":"[]",
     "growenemy_with_enemydie":"0",
-    "enemy_instance_info":"{\"1\":{\"enemy_team_id\":\"${enemyTeamId}\",\"boss_hp\":\"0\",\"enemy_hp_percent\":1,\"enemy_birth_turn\":1,\"enemy_ai\":\"2\",\"enemy_ai_para\":0}}"
+    "enemy_instance_info":"{\"1\":{\"enemy_team_id\":\"${enemyTeamId}\",\"boss_hp\":\"${bossHp}\",\"enemy_hp_percent\":1,\"enemy_birth_turn\":1,\"enemy_ai\":\"2\",\"enemy_ai_para\":0}}"
 }

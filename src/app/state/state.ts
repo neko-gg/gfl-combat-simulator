@@ -29,10 +29,12 @@ export default class State {
                                    new FairyInEchelon(new Fairy(11), true, true));
 
     private _enemyTeamId = 1544;
+    private _enemyBossHp = 0;
     private _isDay = true;
     private _proxyPort = 9002;
     private _nodeBelongsTo = NodeBelongsTo.WHITE;
     private _fairySkillsOnTeam: StrategyFairySkillInfoPacket | [] = [];
+    private _fairySkillsOnEnemy: StrategyFairySkillInfoPacket | [] = [];
     private _hocs: HOC[] = [];
 
     get echelon(): Echelon {
@@ -49,6 +51,14 @@ export default class State {
 
     set enemyTeamId(value: number) {
         this._enemyTeamId = value;
+    }
+
+    get enemyBossHp(): number {
+        return this._enemyBossHp;
+    }
+
+    set enemyBossHp(value: number) {
+        this._enemyBossHp = value;
     }
 
     get isDay(): boolean {
@@ -81,6 +91,14 @@ export default class State {
 
     set fairySkillsOnTeam(value: StrategyFairySkillInfoPacket | []) {
         this._fairySkillsOnTeam = value;
+    }
+
+    get fairySkillsOnEnemy(): StrategyFairySkillInfoPacket | [] {
+        return this._fairySkillsOnEnemy;
+    }
+
+    set fairySkillsOnEnemy(value: StrategyFairySkillInfoPacket | []) {
+        this._fairySkillsOnEnemy = value;
     }
 
     get hocs(): HOC[] {

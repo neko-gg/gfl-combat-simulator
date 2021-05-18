@@ -18,6 +18,7 @@ import SwipeableViews from 'react-swipeable-views';
 interface AppState {
     echelon: Echelon;
     enemyTeamId: number;
+    enemyBossHp: number;
     isDay: boolean;
     proxyPort: number;
     nodeBelongsTo: NodeBelongsTo;
@@ -28,6 +29,7 @@ class App extends React.Component<unknown, AppState> {
     readonly state: AppState = {
         echelon: state.Instance.echelon,
         enemyTeamId: state.Instance.enemyTeamId,
+        enemyBossHp: state.Instance.enemyBossHp,
         isDay: state.Instance.isDay,
         proxyPort: state.Instance.proxyPort,
         nodeBelongsTo: state.Instance.nodeBelongsTo,
@@ -49,9 +51,9 @@ class App extends React.Component<unknown, AppState> {
         ipcRenderer.send('echelon-updated', this.state.echelon);
     }
 
-    updateEnemyTeam(enemyTeamId: number) {
-        this.setState({enemyTeamId: enemyTeamId});
-        ipcRenderer.send('enemy-updated', enemyTeamId);
+    updateEnemyTeam(enemyTeamId: number, enemyBossHp: number) {
+        this.setState({enemyTeamId: enemyTeamId, enemyBossHp: enemyBossHp});
+        ipcRenderer.send('enemy-updated', {enemyTeamId: enemyTeamId, enemyBossHp: enemyBossHp});
     }
 
     setIsDay(isDay: boolean) {
