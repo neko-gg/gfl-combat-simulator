@@ -5714,6 +5714,11 @@ jsbn@~0.1.0:
   resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
   integrity sha1-peZUwuWi3rXyAdls77yoDA7y9RM=
 
+jscrypto@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/jscrypto/-/jscrypto-1.0.1.tgz#786f0f803b1717a4b7c6247ccfaa8a8230fe062b"
+  integrity sha512-xb+lVDVDGe3cL7i7IZqdvQV0ucMyxxD3Jt+xfrc0GedTOdLto65rBHpIlKOJ8W/X3Qg/z5nEcUva5ziDVParSQ==
+
 json-buffer@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/json-buffer/-/json-buffer-3.0.0.tgz#5b1f397afc75d677bde8bcfc0e47e1f9a3d9a898"
