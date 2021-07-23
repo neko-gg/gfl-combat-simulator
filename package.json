@@ -36,6 +36,9 @@
   "config": {
     "forge": "./tools/forge/forge.config.js"
   },
+  "updater": {
+    "url": "https://raw.githubusercontent.com/neko-gg/gfl-combat-simulator/senpai/updates.json"
+  },
   "devDependencies": {
     "@electron-forge/cli": "6.0.0-beta.54",
     "@electron-forge/maker-deb": "6.0.0-beta.54",
@@ -107,6 +110,7 @@
     "base64-arraybuffer": "^0.2.0",
     "base64-js": "^1.5.1",
     "chart.js": "^2.9.4",
+    "electron-simple-updater": "^2.0.10",
     "electron-squirrel-startup": "^1.0.0",
     "extract-zip": "^2.0.1",
     "fontsource-roboto": "^4.0.0",

@@ -18,6 +18,8 @@ if (require('electron-squirrel-startup')) {
     app.quit();
 }
 
+require('electron-simple-updater');
+
 logger.info(`starting gfl-combat-simulator${inDev ? ' in development mode' : ''}`);
 
 const createWindow = (): void => {

@@ -3461,6 +3461,14 @@ electron-rebuild@^2.0.3:
     tar "^6.0.5"
     yargs "^16.0.0"
 
+electron-simple-updater@^2.0.10:
+  version "2.0.10"
+  resolved "https://registry.yarnpkg.com/electron-simple-updater/-/electron-simple-updater-2.0.10.tgz#f0896fcc3d86dddd9af4aec6d8099589527f26c5"
+  integrity sha512-gaKVW16purV5cP+A0Jfzj0bxEC9EF5pegpM+aUFi4SAg2EDIClgXz7m+YLhS22bJWkGLbmqA4d6Zc/HBQPLDjw==
+  dependencies:
+    httpreq "0.4.24"
+    semver "^7.1.1"
+
 electron-squirrel-startup@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/electron-squirrel-startup/-/electron-squirrel-startup-1.0.0.tgz#19b4e55933fa0ef8f556784b9c660f772546a0b8"
@@ -5109,6 +5117,11 @@ http2-wrapper@^1.0.0-beta.5.2:
   dependencies:
     quick-lru "^5.1.1"
     resolve-alpn "^1.0.0"
+
+httpreq@0.4.24:
+  version "0.4.24"
+  resolved "https://registry.yarnpkg.com/httpreq/-/httpreq-0.4.24.tgz#4335ffd82cd969668a39465c929ac61d6393627f"
+  integrity sha1-QzX/2CzZaWaKOUZckprGHWOTYn8=
 
 https-browserify@0.0.1:
   version "0.0.1"
