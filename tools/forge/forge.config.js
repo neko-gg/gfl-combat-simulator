@@ -3,12 +3,20 @@ const path = require('path');
 const rootDir = process.cwd();
 const fs = require('fs-extra');
 const {spawn} = require('child_process');
+const pjson = require('../../package.json');
 
 module.exports = {
     packagerConfig: {
         asar: true
     },
     makers: [
+        {
+            name: '@electron-forge/maker-squirrel',
+            platforms: ['win32'],
+            config: {
+                setupExe: `gfl-combat-simulator-${pjson.version}-setup.exe`
+            }
+        },
         {
             name: '@electron-forge/maker-zip',
             platforms: ['darwin', 'win32']
