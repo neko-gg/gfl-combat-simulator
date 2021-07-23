@@ -2,6 +2,10 @@
 
 All notable changes to GFL Combat Simulator.
 
+### 0.7
+- 🔧 Improve assets updater
+- ✨ Add squirrel target
+
 ### 0.6
 - ✨ Add enemy boss HP
 - ✨ Add EMP debuff
