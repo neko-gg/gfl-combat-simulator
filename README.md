@@ -1,7 +1,7 @@
 # GFL Combat Simulator
 
 A proxy-based battle simulator for Girls' Frontline.
-<img src="https://i.imgur.com/RGnNxhG.png" width="640" />
+<img src="https://i.imgur.com/GFn4NVJ.png" width="640" />
 
 ## Core Features
 
@@ -49,6 +49,7 @@ yarn start
 
 #### Make
 Make a production build:
+> **_NOTE:_**  [NSIS](https://nsis.sourceforge.io) needs to be installed. Make sure _makensis_ is in the path.
 ```bash
 yarn make
 ```
