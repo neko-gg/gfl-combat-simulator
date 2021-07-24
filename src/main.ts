@@ -1,4 +1,5 @@
-import {app, BrowserWindow, ipcMain, protocol} from 'electron';
+import {app, BrowserWindow, dialog, ipcMain, protocol} from 'electron';
+import axios, {AxiosResponse} from "axios";
 import {changePort, startProxy} from "@app/web/proxy";
 import logger from "@app/utils/logger"
 import {inDev} from "@app/utils/dev";
@@ -7,9 +8,15 @@ import Echelon from "@app/model/Echelon";
 import TDoll from "@app/model/TDoll";
 import Equip from "@app/model/Equip";
 import Fairy from "@app/model/Fairy";
+import HOC from "@app/model/HOC";
 import {NodeBelongsTo} from "@app/model/NodeBelongsTo";
 import {StrategyFairySkillInfoPacket} from "@app/model/StrategyFairySkill";
-import HOC from "@app/model/HOC";
+import {downloadPromise} from "@app/data/DownloadUtils";
+import tmp from "tmp";
+import * as childProcess from 'child_process'
+import path from "path";
+import semver from "semver";
+import pjson from "../package.json";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -18,7 +25,64 @@ if (require('electron-squirrel-startup')) {
     app.quit();
 }
 
-require('electron-simple-updater');
+const updateIfAvailable = (version: string, asset: { name: string, browser_download_url: string }) => {
+    return new Promise<void>(resolve => {
+        if (semver.gt(version, pjson.version)) {
+            logger.debug("new version available");
+            const dialogOptions = {
+                buttons: ["Yes", "No"],
+                message: "New version available. Do you want to update?"
+            }
+            dialog.showMessageBox(dialogOptions).then(response => {
+                if (response.response === 0) {
+                    logger.debug("user choose to update");
+                    downloadAndRunInstaller(asset).then(() => resolve())
+                } else {
+                    logger.debug("user refused to update");
+                    resolve();
+                }
+            });
+        } else {
+            logger.debug("latest version already installed");
+            resolve();
+        }
+    });
+}
+
+const downloadAndRunInstaller = (asset: { name: string, browser_download_url: string }) => {
+    return new Promise<void>((resolve, reject) => {
+        if (!asset.browser_download_url) {
+            reject(`empty setup download url: ${asset}`)
+        } else {
+            const tempDir = tmp.dirSync({prefix: 'gfl-combat-simulator-'});
+            const tempDirPath = tempDir.name;
+            const tempPath = path.resolve(tempDirPath, asset.name)
+
+            logger.debug("downloading installer")
+            downloadPromise(asset.browser_download_url, tempPath).then(setupExe => {
+                logger.info("running installer")
+                return childProcess.exec(setupExe,
+                                         err => {
+                                             if (err) {
+                                                 reject(err)
+                                             } else {
+                                                 resolve();
+                                             }
+                                         });
+            }).catch(err => reject(err));
+        }
+    });
+}
+
+const checkForUpdates = () => {
+    logger.info("checking for updates");
+    axios.get('https://api.github.com/repos/neko-gg/gfl-combat-simulator/releases/latest')
+         .then((response: AxiosResponse<{ tag_name: string, assets: { name: string, browser_download_url: string }[] }>) => response.data)
+         .then(data => ({...data, version: data.tag_name.replace(/v?(.*)/g, "$1")}))
+         .then(data => ({...data, version: data.version.replace(/^([^\\.]*\.[^\\.]*)$/g, "$1.0")}))
+         .then(data => updateIfAvailable(data.version, data.assets.find(asset => asset.name.endsWith("-setup.exe"))));
+};
+checkForUpdates();
 
 logger.info(`starting gfl-combat-simulator${inDev ? ' in development mode' : ''}`);
 
@@ -41,7 +105,7 @@ const createWindow = (): void => {
     mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
     mainWindow.on('ready-to-show', () => mainWindow.show());
 
-    if(!inDev) {
+    if (!inDev) {
         mainWindow.removeMenu();
     }
 
@@ -122,4 +186,3 @@ ipcMain.on('fairy-skill-on-enemy-updated', (event, arg: StrategyFairySkillInfoPa
 ipcMain.on('hocs-updated', (event, arg: HOC[]) => {
     state.Instance.hocs = arg.map(hoc => Object.assign(HOC.clone(hoc), hoc));
 });
-
