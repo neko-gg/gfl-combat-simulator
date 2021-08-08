@@ -6,7 +6,8 @@ const {spawn} = require('child_process');
 
 module.exports = {
     packagerConfig: {
-        asar: true
+        asar: true,
+        icon: path.join(rootDir, 'src/static/icon/icon.ico')
     },
     makers: [
         {
