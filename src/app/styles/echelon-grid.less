@@ -23,7 +23,8 @@
   background-size: cover;
 }
 
-.echelon-grid-doll {
+.echelon-grid-doll,
+.coalition-echelon-grid-unit {
   margin: auto;
   height: @echelon-grid-doll-size;
   width: @echelon-grid-doll-size;
@@ -97,6 +98,16 @@
   background-color: @color-echelon-grid-doll-tiles-tile-empty;
 }
 
-.echelon-grid-doll-draggable.dragged {
+.echelon-grid-element-draggable.dragged {
   visibility: hidden;
+}
+
+.coalition-echelon-grid-unit {
+  transform: scaleX(-1);
+}
+
+.coalition-echelon-grid-container {
+  .echelon-grid-cell {
+    background-image: url('../../static/image/coalition-echelon-grid-cell-background.png');
+  }
 }

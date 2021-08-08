@@ -8,6 +8,9 @@ import FairyInEchelon from "@app/model/FairyInEchelon";
 import {NodeBelongsTo} from "@app/model/NodeBelongsTo";
 import {StrategyFairySkillInfoPacket} from "@app/model/StrategyFairySkill";
 import HOC from "@app/model/HOC";
+import CoalitionEchelon from "@app/model/CoalitionEchelon";
+import CoalitionUnitInEchelon from "@app/model/CoalitionUnitInEchelon";
+import CoalitionUnit from "@app/model/CoalitionUnit";
 
 
 export default class State {
@@ -28,6 +31,10 @@ export default class State {
                                     new TDollInEchelon(new TDoll(20_057), EchelonGridPosition.BOTTOM_LEFT, EchelonListPosition.FIFTH)],
                                    new FairyInEchelon(new Fairy(11), true, true));
 
+    private _coalitionEchelon = new CoalitionEchelon([new CoalitionUnitInEchelon(new CoalitionUnit(1001), EchelonGridPosition.MIDDLE_CENTER),
+                                                      new CoalitionUnitInEchelon(new CoalitionUnit(3004), EchelonGridPosition.MIDDLE_LEFT)]);
+
+    private _selectedEchelonType: 'griffin' | 'coalition' = 'griffin';
     private _enemyTeamId = 1544;
     private _enemyBossHp = 0;
     private _isDay = true;
@@ -43,6 +50,22 @@ export default class State {
 
     set echelon(value: Echelon) {
         this._echelon = value;
+    }
+
+    get coalitionEchelon(): CoalitionEchelon {
+        return this._coalitionEchelon;
+    }
+
+    set coalitionEchelon(value: CoalitionEchelon) {
+        this._coalitionEchelon = value;
+    }
+
+    get selectedEchelonType(): "griffin" | "coalition" {
+        return this._selectedEchelonType;
+    }
+
+    set selectedEchelonType(value: "griffin" | "coalition") {
+        this._selectedEchelonType = value;
     }
 
     get enemyTeamId(): number {

@@ -15,7 +15,7 @@ import {updateFairyIcon} from "./FairyIconUpdater";
     await downloadPromise('https://github.com/36base/girlsfrontline-resources/archive/master.zip', tempResourcesPath);
     const resourcesZip = new AdmZip(tempResourcesPath);
     await new Promise<void>((resolve, reject) => resourcesZip.extractAllToAsync(tempDirPath, true, error => error ? reject(error) : resolve()));
-    console.log('resources extraced in:', tempDirPath);
+    console.log('resources extracted in:', tempDirPath);
     const resourcesPath = path.resolve(tempDirPath, 'girlsfrontline-resources-master');
 
     await updateChibi(resourcesPath);

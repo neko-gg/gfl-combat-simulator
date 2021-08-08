@@ -1,0 +1,7 @@
+{
+    "user_id":"${userId}",
+    "chip_id":"${chipId}",
+    "dev_time":"0",
+    "sangvis_with_user_id":${coalitionUID},
+    "chip_slot":${chipSlot}
+}

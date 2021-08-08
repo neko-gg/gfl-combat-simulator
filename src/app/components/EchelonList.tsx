@@ -1,6 +1,5 @@
 import React from 'react';
 import {hot} from 'react-hot-loader';
-import '../styles/echelon-list.less'
 import EchelonListElement from "@app/components/EchelonListElement";
 import logger from "@app/utils/logger";
 import {EchelonListPosition} from "@app/model/EchelonListPosition";

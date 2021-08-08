@@ -17,6 +17,8 @@ import * as childProcess from 'child_process'
 import path from "path";
 import semver from "semver";
 import pjson from "../package.json";
+import CoalitionEchelon from "@app/model/CoalitionEchelon";
+import CoalitionUnit from "@app/model/CoalitionUnit";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -74,17 +76,18 @@ const downloadAndRunInstaller = (asset: { name: string, browser_download_url: st
     });
 }
 
+logger.info(`starting gfl-combat-simulator${inDev ? ' in development mode' : ''}`);
+
 const checkForUpdates = () => {
     logger.info("checking for updates");
     axios.get('https://api.github.com/repos/neko-gg/gfl-combat-simulator/releases/latest')
          .then((response: AxiosResponse<{ tag_name: string, assets: { name: string, browser_download_url: string }[] }>) => response.data)
          .then(data => ({...data, version: data.tag_name.replace(/v?(.*)/g, "$1")}))
          .then(data => ({...data, version: data.version.replace(/^([^\\.]*\.[^\\.]*)$/g, "$1.0")}))
-         .then(data => updateIfAvailable(data.version, data.assets.find(asset => asset.name.endsWith("-setup.exe"))));
+         .then(data => updateIfAvailable(data.version, data.assets.find(asset => asset.name.endsWith("-setup.exe"))))
+         .catch(err => logger.error('failed to update:', err));
 };
 checkForUpdates();
-
-logger.info(`starting gfl-combat-simulator${inDev ? ' in development mode' : ''}`);
 
 const createWindow = (): void => {
     const mainWindow = new BrowserWindow({
@@ -155,6 +158,18 @@ ipcMain.on('echelon-updated', (event, arg: Echelon) => {
     }
 
     state.Instance.echelon = arg;
+});
+
+ipcMain.on('coalition-echelon-updated', (event, arg: CoalitionEchelon) => {
+    arg.unitsInEchelon
+       .filter(unitInEchelon => unitInEchelon?.coalitionUnit)
+       .forEach(unitInEchelon => unitInEchelon.coalitionUnit = Object.assign(new CoalitionUnit(unitInEchelon.coalitionUnit.id), unitInEchelon.coalitionUnit));
+
+    state.Instance.coalitionEchelon = Object.assign(new CoalitionEchelon(arg.unitsInEchelon), arg);
+});
+
+ipcMain.on('selected-echelon-type-updated', (event, arg: "griffin" | "coalition") => {
+    state.Instance.selectedEchelonType = arg;
 });
 
 ipcMain.on('enemy-updated', (event, arg: { enemyTeamId: number, enemyBossHp: number }) => {
