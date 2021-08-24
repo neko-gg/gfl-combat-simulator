@@ -16,6 +16,7 @@ import {getSpotActInfo} from "@app/model/Battle";
 import {SquadInfoInMission} from "@app/model/HOC";
 import CoalitionUnitInEchelon from "@app/model/CoalitionUnitInEchelon";
 import CoalitionUnit from "@app/model/CoalitionUnit";
+import {CoalitionUnitType} from "@app/model/CoalitionUnitType";
 
 const pipeSockets = (socketA: Socket, socketB: Socket) => {
     socketB.pipe(socketA);
@@ -449,6 +450,24 @@ function getSangvisWithUserInfo(coalitionUnitInEchelon: CoalitionUnitInEchelon, 
     const coalitionUnit: CoalitionUnit = coalitionUnitInEchelon.coalitionUnit;
     const coalitionUID = coalitionUidOffset + coalitionUnitInEchelonPosition;
     const templateSangvisWithUserInfo = fs.readFileSync(getStaticPath(path.join('packet', 'sangvis_with_user_info.tjson')), 'utf8');
+
+    let skillOne = coalitionUnit.skillOne || 0;
+    let skillTwo = coalitionUnit.skillTwo || 0;
+    let skillThree = coalitionUnit.skillThree || 0;
+    let skillFour = coalitionUnit.skillFour || 0;
+
+    // 𝓶𝓲𝓬𝓪 skill order time
+    // 3⭐: 1 2 3 4
+    // 2⭐: 0 0 1 2
+    // 1⭐: 0 0 0 1
+    if (coalitionUnit.type() != CoalitionUnitType.Ringleader) {
+        const hasTwoSkills = coalitionUnit.initialRarity() > 1;
+        skillThree = hasTwoSkills ? skillOne : 0;
+        skillFour = hasTwoSkills ? skillTwo : skillOne;
+        skillOne = 0;
+        skillTwo = 0;
+    }
+
     const sangvisWithUserInfo = templateSangvisWithUserInfo.replace(/\${coalitionUID}/g, `${coalitionUID}`)
                                                            .replace(/\${userId}/g, `${userId}`)
                                                            .replace(/\${coalitionId}/g, `${coalitionUnit.id}`)
@@ -457,10 +476,10 @@ function getSangvisWithUserInfo(coalitionUnitInEchelon: CoalitionUnitInEchelon, 
                                                            .replace(/\${coalitionRarity}/g, `${coalitionUnit.rarity}`)
                                                            .replace(/\${coalitionDummies}/g, `${coalitionUnit.dummies - 1}`)
                                                            .replace(/\${coalitionSize}/g, `${coalitionUnit.size || 0}`)
-                                                           .replace(/\${coalitionSkillOne}/g, `${coalitionUnit.skillOne || 0}`)
-                                                           .replace(/\${coalitionSkillTwo}/g, `${coalitionUnit.skillTwo || 0}`)
-                                                           .replace(/\${coalitionSkillThree}/g, `${coalitionUnit.skillThree || 0}`)
-                                                           .replace(/\${coalitionSkillFour}/g, `${coalitionUnit.skillFour || 0}`)
+                                                           .replace(/\${coalitionSkillOne}/g, `${skillOne}`)
+                                                           .replace(/\${coalitionSkillTwo}/g, `${skillTwo}`)
+                                                           .replace(/\${coalitionSkillThree}/g, `${skillThree}`)
+                                                           .replace(/\${coalitionSkillFour}/g, `${skillFour}`)
                                                            .replace(/\${coalitionChipOne}/g, `${coalitionUnit.chipOne || 0}`)
                                                            .replace(/\${coalitionChipTwo}/g, `${coalitionUnit.chipTwo || 0}`)
                                                            .replace(/\${coalitionAffection}/g, `${coalitionUnit.affection * 10_000}`)
