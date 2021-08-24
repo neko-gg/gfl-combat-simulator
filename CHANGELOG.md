@@ -2,6 +2,9 @@
 
 All notable changes to GFL Combat Simulator.
 
+### 0.8.1
+- 🐛 Fix HOCs not appearing
+
 ### 0.8
 - 🎨 Add icon
 - ✨ Add coalition echelon
