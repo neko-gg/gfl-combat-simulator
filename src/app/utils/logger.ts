@@ -1,3 +1,5 @@
+import {inDev} from "@app/utils/dev";
+
 // https://github.com/webpack/webpack/issues/4175#issuecomment-342931035
 const requireFunc = typeof __webpack_require__ === "function" ? __non_webpack_require__ : require;
 
@@ -18,7 +20,7 @@ const logger = winston.createLogger({
         new DailyRotateFile({
             json: false,
             extension: ".log",
-            dirname: "./log",
+            dirname: inDev ? "./log" : `${process.env.APPDATA || (process.platform == 'darwin' ? process.env.HOME + '/Library/Preferences' : process.env.HOME + "/.local/share")}/gfl-combat-simulator/log`,
             filename: "%DATE%"
         })
     ]
