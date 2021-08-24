@@ -417,7 +417,7 @@ const squadExpInfos = squadExpInfo.reduce((accumulator: StcSquadExp[], current: 
     return accumulator;
 }, []);
 
-const squadInfos = squadInfo.filter(squad => squadCpuCompletionInfos[squad.id])
+const squadInfos = squadInfo.filter(squad => squadCpuCompletionInfos[squad.advanced_bonus])
                             .reduce((accumulator: StcSquad[], current: StcSquad) => {
     accumulator[current.id] = current;
     return accumulator;
