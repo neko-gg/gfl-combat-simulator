@@ -31,8 +31,10 @@ export default class State {
                                     new TDollInEchelon(new TDoll(20_057), EchelonGridPosition.BOTTOM_LEFT, EchelonListPosition.FIFTH)],
                                    new FairyInEchelon(new Fairy(11), true, true));
 
-    private _coalitionEchelon = new CoalitionEchelon([new CoalitionUnitInEchelon(new CoalitionUnit(1001), EchelonGridPosition.MIDDLE_CENTER),
-                                                      new CoalitionUnitInEchelon(new CoalitionUnit(3004), EchelonGridPosition.MIDDLE_LEFT)]);
+    private _coalitionEchelon = new CoalitionEchelon([new CoalitionUnitInEchelon(new CoalitionUnit(1003), EchelonGridPosition.MIDDLE_LEFT),
+                                                      new CoalitionUnitInEchelon(new CoalitionUnit(2006), EchelonGridPosition.TOP_CENTER),
+                                                      new CoalitionUnitInEchelon(new CoalitionUnit(2006), EchelonGridPosition.BOTTOM_CENTER),
+                                                      new CoalitionUnitInEchelon(new CoalitionUnit(3004), EchelonGridPosition.TOP_LEFT)]);
 
     private _selectedEchelonType: 'griffin' | 'coalition' = 'griffin';
     private _enemyTeamId = 1544;
