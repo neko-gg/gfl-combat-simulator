@@ -1,0 +1,334 @@
+@import './variables.less';
+
+.coalition-echelon-list-container {
+  width: @coalition-echelon-list-container-width;
+  height: @coalition-echelon-list-container-height;
+  overflow: hidden;
+  display: flex;
+  margin-bottom: @padding-normal;
+}
+
+.coalition-echelon-list-leader-container {
+  width: @coalition-echelon-list-leader-container-width;
+  height: @coalition-echelon-list-leader-container-height;
+  float: left;
+  box-sizing: content-box;
+}
+
+.coalition-echelon-list-elements-container {
+  width: @coalition-echelon-list-elements-container-width;
+  height: fit-content;
+  float: right;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: end;
+  align-items: flex-start;
+  row-gap: @padding-half;
+  padding-top: @coalition-echelon-list-elements-container-padding;
+  padding-bottom: @coalition-echelon-list-elements-container-padding;
+}
+
+.coalition-echelon-list-leader {
+  width: 100%;
+  height: 100%;
+  padding-bottom: @padding-fourth;
+  background-color: @color-coalition-echelon-list-bg;
+}
+
+.coalition-echelon-list-leader-name {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: @padding-fourth;
+  padding-left: @padding-fourth;
+  padding-right: @padding-fourth;
+  text-align: center;
+  height: @coalition-echelon-list-leader-name-height;
+  line-height: @coalition-echelon-list-leader-name-height;
+}
+
+.coalition-echelon-list-leader-picture {
+  margin-top: @padding-fourth;
+  margin-left: auto;
+  margin-right: auto;
+  height: @coalition-echelon-list-leader-picture-size;
+  width: @coalition-echelon-list-leader-picture-size;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border-radius: @coalition-echelon-list-leader-picture-radius;
+  border: @coalition-echelon-list-leader-picture-radius-border;
+}
+
+.coalition-echelon-list-leader-picture:hover {
+  cursor: pointer;
+}
+
+.coalition-echelon-select-full-width {
+  position: relative;
+}
+
+.coalition-echelon-select-full-width > .echelon-list-element-select-container {
+  width: 100%;
+  margin-left: 0;
+}
+
+.coalition-echelon-select-full-width .echelon-list-element-select-label.MuiFormLabel-root {
+  margin-left: @padding-fourth;
+}
+
+.coalition-echelon-select-full-width .echelon-list-element-select-form-control.MuiFormControl-root {
+  width: @coalition-echelon-leader-select-full-width-width;
+  margin-left: @padding-fourth;
+  margin-right: @padding-fourth;
+}
+
+.coalition-echelon-select-block {
+  margin-left: @padding-fourth;
+  margin-right: @padding-fourth;
+}
+
+.coalition-echelon-select-block-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.coalition-echelon-leader-select-block-row-cell {
+  display: inline-block;
+  width: @coalition-echelon-leader-select-block-row-cell-width;
+}
+
+.coalition-echelon-leader-select-block-row-cell-small {
+  display: inline-block;
+  width: @coalition-echelon-leader-select-block-row-cell-small-width;
+}
+
+.coalition-echelon-leader-select-block-row-cell-third {
+  display: inline-block;
+  width: @coalition-echelon-leader-select-block-row-cell-third-width;
+}
+
+.coalition-echelon-leader-select-block-row-cell-third .echelon-list-element-select-container,
+.coalition-echelon-leader-select-block-row-cell-small .echelon-list-element-select-container,
+.coalition-echelon-leader-select-block-row-cell .echelon-list-element-select-container {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.coalition-echelon-leader-select-block-row-cell .echelon-list-element-select-form-control.MuiFormControl-root {
+  width: @coalition-echelon-leader-select-block-row-cell-width;
+}
+
+.coalition-echelon-leader-select-block-row-cell-small .echelon-list-element-select-form-control.MuiFormControl-root {
+  width: @coalition-echelon-leader-select-block-row-cell-small-width,
+}
+
+.coalition-echelon-leader-select-block-row-cell-third .echelon-list-element-select-form-control.MuiFormControl-root {
+  width: @coalition-echelon-leader-select-block-row-cell-third-width,
+}
+
+.coalition-echelon-list-elements-element {
+  background-color: @color-coalition-echelon-list-bg;
+  height: @coalition-echelon-list-elements-element-height;
+  width: @coalition-echelon-list-elements-element-width;
+}
+
+.coalition-echelon-list-elements-element-no-unit-pickable {
+  height: @coalition-echelon-list-elements-element-height;
+  width: @coalition-echelon-list-elements-element-width;
+  background-color: @color-coalition-echelon-list-bg;
+  background-repeat: no-repeat;
+  background-size: 50%;
+  background-position: center;
+  background-image: url("../../static/icon/misc/select-coalition-unit.png");
+}
+
+.coalition-echelon-list-elements-element-no-unit-pickable:hover {
+  cursor: pointer;
+}
+
+.coalition-echelon-list-leader-pick {
+  margin-top: @padding-fourth;
+  width: @coalition-echelon-list-leader-container-width;
+  height: @coalition-echelon-list-leader-container-not-picked-height;
+  background-repeat: no-repeat;
+  background-size: 50%;
+  background-position: center;
+  background-image: url("../../static/icon/misc/select-coalition-unit.png");
+}
+
+.coalition-echelon-list-leader-pick:hover {
+  cursor: pointer;
+}
+
+.coalition-echelon-list-elements-element-no-unit-unpickable {
+  height: @coalition-echelon-list-elements-element-height;
+  width: @coalition-echelon-list-elements-element-width;
+  background-color: @color-coalition-echelon-list-bg;
+}
+
+.coalition-echelon-element-select-block-row-cell {
+  display: inline-block;
+  width: @coalition-echelon-element-select-block-row-cell-width;
+}
+
+.coalition-echelon-element-select-block-row-cell .echelon-list-element-select-container {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.coalition-echelon-element-select-block-row-cell .echelon-list-element-select-form-control.MuiFormControl-root {
+  width: @coalition-echelon-element-select-block-row-cell-width;
+}
+
+.coalition-echelon-list-element-name-container {
+  height: @coalition-echelon-list-element-name-container-line-height;
+  text-align: center;
+  padding-top: @padding-fourth;
+  margin-bottom: calc(-1 * @padding-fourth);
+}
+
+.coalition-echelon-select-block-row-spacing {
+  margin-top: @padding-half;
+}
+
+.coalition-echelon-leader-select-chips-cost {
+  margin-left: auto;
+  margin-right: auto;
+  height: @coalition-echelon-leader-select-chips-cost-size;
+  width: @coalition-echelon-leader-select-chips-cost-size;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.coalition-echelon-leader-select-chip {
+  background-size: cover;
+}
+
+.coalition-echelon-leader-select-cost-label {
+  padding-top: @padding-half;
+  text-align: center;
+  font-size: @coalition-echelon-leader-select-cost-label-font-size;
+}
+
+.coalition-echelon-leader-select-cost-cost {
+  font-size: @coalition-echelon-leader-select-cost-cost-font-size;
+}
+
+.coalition-echelon-element-cost-pick-row {
+  margin-top: @padding-fourth;
+  display: flex;
+  justify-content: space-between;
+}
+
+.coalition-echelon-element-cost-label {
+  float: left;
+  padding-top: @coalition-echelon-element-cost-label-padding-top;
+  font-size: @coalition-echelon-element-cost-label-font-size;
+}
+
+.coalition-echelon-element-cost {
+  font-size: @coalition-echelon-element-cost-font-size;
+}
+
+.coalition-echelon-element-cost-pick-pick {
+  float: right;
+}
+
+.coalition-echelon-element-cost-pick-pick-img {
+  width: @coalition-echelon-element-cost-pick-pick-img-width;
+}
+
+.coalition-echelon-element-cost-pick-pick-img:hover {
+  cursor: pointer;
+}
+
+.coalition-echelon-list-total-cost {
+  font-size: @coalition-echelon-list-total-cost-font-size;
+}
+
+.coalition-echelon-list-total-cost-value {
+  font-size: @coalition-echelon-list-total-cost-value-font-size;
+  font-weight: bold;
+}
+
+.coalition-echelon-list-total-cost-value-overflow {
+  color: red;
+}
+
+.coalition-echelon-list-coalition-unit-picker-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: @padding-fourth;
+  justify-content: start;
+  width: @coalition-echelon-list-coalition-unit-picker-container-width;
+}
+
+.coalition-echelon-list-coalition-unit-picker-container-coalition-unit-container {
+  margin-left: @padding-fourth;
+  margin-right: @padding-fourth;
+  margin-top: @coalition-echelon-list-coalition-unit-picker-container-coalition-unit-container-margin-top;
+}
+
+.coalition-echelon-list-coalition-unit-picker-container-coalition-unit {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: @coalition-echelon-list-coalition-unit-picker-container-coalition-unit-width;
+  height: @coalition-echelon-list-coalition-unit-picker-container-coalition-unit-height;
+  margin: @padding-fourth;
+  cursor: pointer;
+}
+
+.coalition-echelon-list-coalition-unit-name-container {
+  text-align: center;
+  height: @coalition-echelon-list-coalition-unit-picker-height;
+  line-height: @coalition-echelon-list-coalition-unit-picker-height;
+  position: relative;
+  white-space: nowrap;
+  margin-left: auto;
+  margin-right: auto;
+  top: 100%;
+  transform: translateY(-100%);
+  color: @color-coalition-echelon-picker-name-text;
+  background-color: @color-coalition-echelon-picker-name-background;
+  font-weight: bold;
+}
+
+.coalition-echelon-list-coalition-chip-picker-container {
+  width: @coalition-echelon-list-coalition-chip-picker-container-width;
+}
+
+.coalition-echelon-leader-select-chip-pickable {
+  cursor: pointer;
+}
+
+.coalition-echelon-list-coalition-chip-picker-container {
+  display: grid;
+  row-gap: @padding-half;
+}
+
+.coalition-echelon-list-coalition-chip-picker-container-chip-container {
+  display: grid;
+  grid-template-columns: @coalition-echelon-list-coalition-chip-picker-container-chip-icon-size auto;
+  column-gap: @padding-fourth;
+}
+
+.coalition-echelon-list-coalition-chip-picker-container-chip-icon {
+  width: @coalition-echelon-list-coalition-chip-picker-container-chip-icon-size;
+  height: @coalition-echelon-list-coalition-chip-picker-container-chip-icon-size;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.coalition-echelon-list-coalition-chip-picker-container-chip-name {
+  font-weight: bold;
+}
+
+.coalition-echelon-list-coalition-chip-picker-container-chip-name-description {
+  margin-top: @padding-fourth;
+}
+
+.coalition-echelon-leader-select-chip-tooltip-name {
+  font-weight: bold;
+}

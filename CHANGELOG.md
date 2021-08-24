@@ -2,6 +2,12 @@
 
 All notable changes to GFL Combat Simulator.
 
+### 0.8
+- 🎨 Add icon
+- ✨ Add coalition echelon
+- 🔧 Add NSIS installer
+- 🔧 Add auto updater
+
 ### 0.7
 - 🔧 Improve assets updater
 - ✨ Add squirrel target

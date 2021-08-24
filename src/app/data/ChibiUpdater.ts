@@ -11,7 +11,13 @@ async function trySpineToPng(browser: Browser, basePath: string, spineDir: strin
 
     const input = await page.waitForSelector('#fileElem');
 
-    const spineFiles = ['atlas', 'png', 'skel'].map(ext => path.resolve(basePath, spineDir, `${spineDir}.${ext}`));
+    let baseFileName = spineDir;
+    if (!fs.existsSync(path.resolve(basePath, spineDir, `${baseFileName}.atlas`))) {
+        const atlas = fs.readdirSync(path.resolve(basePath, spineDir)).find(file => file.endsWith('atlas'));
+        if (atlas) baseFileName = atlas.replace(/\.atlas/, '');
+    }
+
+    const spineFiles = ['atlas', 'png', 'skel'].map(ext => path.resolve(basePath, spineDir, `${baseFileName}.${ext}`));
     if (!spineFiles.every(spineFile => fs.existsSync(spineFile))) {
         return Promise.reject('could not find all spine files');
     }

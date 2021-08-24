@@ -7,7 +7,7 @@ export async function updateProfilePic(resourcesPath: string): Promise<unknown> 
     const picFiles = await fs.promises.readdir(picPath);
 
     const profilePicFiles = picFiles.filter(picFile => picFile.startsWith('pic_'))
-                                    .filter(picFile => picFile.endsWith('_n.png'));
+                                    .filter(picFile => picFile.endsWith('_n.png') || picFile.endsWith('_ss.png'));
 
     const profilePicOutputDir = path.resolve(__dirname, '..', '..', 'static', 'profile-pic');
     await createDir(profilePicOutputDir);

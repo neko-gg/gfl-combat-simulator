@@ -12,6 +12,8 @@
 @color-echelon-grid-doll-tiles-tile-buffs: #00ffde;
 @color-echelon-list-bg: aliceblue;
 @color-echelon-fairy-bg: @color-echelon-list-bg;
+@color-coalition-echelon-list-bg: @color-echelon-list-bg;
+@color-coalition-echelon-list-leader-picture-border: #6b696b;
 @color-tdoll-picker-name-text: #ffffff;
 @color-tdoll-picker-name-background: rgba(22, 22, 22, 0.8);
 @color-fairy-picker-name-text: #ffffff;
@@ -19,6 +21,8 @@
 @color-fairy-stats-background: rgba(222, 222, 222, 0.8);
 @color-proxy-port-is-use-toast: red;
 @color-copy-proxy-address-to-clipboard-toast: #898989;
+@color-coalition-echelon-picker-name-text: #ffffff;
+@color-coalition-echelon-picker-name-background: rgba(22, 22, 22, 0.8);
 
 @color-rarity-2: #ffffff;
 @color-rarity-3: #5cd8c2;
@@ -85,6 +89,44 @@
 @echelon-fairy-picker-fairy-name-height: 1.5rem;
 @echelon-fairy-stat-icon-size: 0.75rem;
 
+@coalition-echelon-list-container-width: 100%;
+@coalition-echelon-list-container-height: 100%;
+@coalition-echelon-list-leader-container-width: 10rem;
+@coalition-echelon-list-leader-container-height: 100%;
+@coalition-echelon-list-leader-container-not-picked-height: calc(@coalition-echelon-list-elements-element-height - @padding-fourth);
+@coalition-echelon-list-elements-container-width: calc(@coalition-echelon-list-container-width - @coalition-echelon-list-leader-container-width);
+@coalition-echelon-list-elements-container-padding: @padding-fourth;
+@coalition-echelon-list-leader-height: 100%;
+@coalition-echelon-list-leader-name-height: 1.5rem;
+@coalition-echelon-list-leader-picture-size: 8rem;
+@coalition-echelon-list-leader-picture-radius: 0.75rem;
+@coalition-echelon-list-leader-picture-radius-border: 2px solid @color-coalition-echelon-list-leader-picture-border;
+@coalition-echelon-leader-select-full-width-width: calc(100% - 2 * @padding-fourth);
+@coalition-echelon-leader-select-block-row-cell-width: calc(@coalition-echelon-list-leader-container-width / 2 - @padding-half);
+@coalition-echelon-leader-select-block-row-cell-small-width: calc(@coalition-echelon-list-leader-container-width / 4 - @padding-half);
+@coalition-echelon-leader-select-block-row-cell-third-width: calc(@coalition-echelon-list-leader-container-width / 3 - @padding-half);
+@coalition-echelon-list-elements-element-width: 7.5rem;
+@coalition-echelon-list-elements-element-height: 10.6rem;
+@coalition-echelon-list-element-name-container-line-height: 1rem;
+@coalition-echelon-element-select-block-row-cell-width: calc(@coalition-echelon-list-elements-element-width / 3 - @padding-fourth);
+@coalition-echelon-leader-select-chips-cost-size: @coalition-echelon-leader-select-block-row-cell-third-width;
+@coalition-echelon-leader-select-cost-cost-font-size: 16px;
+@coalition-echelon-leader-select-cost-label-font-size: 12px;
+@coalition-echelon-element-cost-label-font-size: 12px;
+@coalition-echelon-element-cost-font-size: 16px;
+@coalition-echelon-element-cost-label-padding-top: calc(@padding-half);
+@coalition-echelon-list-total-cost-font-size: 12px;
+@coalition-echelon-list-total-cost-value-font-size: 16px;
+@coalition-echelon-list-coalition-unit-picker-container-width: @echelon-list-element-tdoll-picker-container-width;
+@coalition-echelon-list-coalition-unit-picker-container-coalition-unit-container-margin-top: -1rem;
+@coalition-echelon-list-coalition-unit-picker-container-coalition-unit-width: 6rem;
+@coalition-echelon-list-coalition-unit-picker-container-coalition-unit-height: @coalition-echelon-list-coalition-unit-picker-container-coalition-unit-width;
+@coalition-echelon-list-coalition-unit-picker-height: 1.5rem;
+@coalition-echelon-list-coalition-unit-picker-container-width: calc((@coalition-echelon-list-coalition-unit-picker-container-coalition-unit-width + @padding-half) * 4 + 2 * @padding-normal);
+@coalition-echelon-element-cost-pick-pick-img-width: 2rem;
+@coalition-echelon-list-coalition-chip-picker-container-width: @echelon-list-element-tdoll-picker-container-width;
+@coalition-echelon-list-coalition-chip-picker-container-chip-icon-size: 4rem;
+
 @enemy-list-item-select-margin-top: 1rem;
 @enemy-list-item-text-field-paper-margin-top: calc(@padding-normal * 1.4);
 @battle-strategy-skill-select-height: 1.5rem;
@@ -95,6 +137,7 @@
 @hoc-select-width: 3rem;
 @hoc-select-checkbox-cell-width: 2rem;
 @hoc-select-checkbox-cell-left-sticky: calc(@hoc-select-checkbox-cell-width + @padding-normal);
+@common-max-select-height: 15rem;
 
 // Miscellaneous
 @base-font-family: Roboto, Helvetica, sans-serif;

@@ -54,7 +54,7 @@
     "battle_count":"0",
     "enemydie_num_killbyhostage":"0",
     "spot":null,
-    "fairy_skill_on_sangvis":"[]",
+    "fairy_skill_on_sangvis":${fairySkillsOnTeam},
     "spot_trans_info":"[]",
     "join_teams":"1",
     "special_skill_203_info":"[]",

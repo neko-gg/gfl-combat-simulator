@@ -14,6 +14,9 @@ import Equip from "@app/model/Equip";
 import TDoll from "@app/model/TDoll";
 import {getSpotActInfo} from "@app/model/Battle";
 import {SquadInfoInMission} from "@app/model/HOC";
+import CoalitionUnitInEchelon from "@app/model/CoalitionUnitInEchelon";
+import CoalitionUnit from "@app/model/CoalitionUnit";
+import {CoalitionUnitType} from "@app/model/CoalitionUnitType";
 
 const pipeSockets = (socketA: Socket, socketB: Socket) => {
     socketB.pipe(socketA);
@@ -21,6 +24,7 @@ const pipeSockets = (socketA: Socket, socketB: Socket) => {
 };
 
 const proxy = Proxy();
+const coalitionUidOffset = 7200;
 
 export const startProxy = (onError: (error: Error, port: number) => void = () => undefined, port = 9002): void => {
     const signKey = 'yundoudou';
@@ -67,6 +71,8 @@ export const startProxy = (onError: (error: Error, port: number) => void = () =>
             const tomorrowEpoch = Math.round(tomorrowDate.getTime() / 1000) + '';
 
             const echelon = state.Instance.echelon;
+            const coalitionEchelon = state.Instance.coalitionEchelon;
+            const selectedEchelonType = state.Instance.selectedEchelonType;
             const fairyInEchelon = echelon.fairyInEchelon;
             const fairy = fairyInEchelon?.fairy;
             const enemyTeamId = state.Instance.enemyTeamId;
@@ -89,35 +95,61 @@ export const startProxy = (onError: (error: Error, port: number) => void = () =>
 
             const indexPacketJson = JSON.parse(indexPacket);
 
-            type EquipWithUserInfoElement = { "id": string }
-            type EquipWithUserInfoAccumulator = { [key in string]: EquipWithUserInfoElement }
-            indexPacketJson.equip_with_user_info = echelon.tDollsInEchelon
-                                                          .filter(tDollsInEchelon => tDollsInEchelon.tDoll)
-                                                          .map(tDollInEchelon => getEquipsWithUserInfo(tDollInEchelon, userId))
-                                                          .reduce((accumulator, current) => accumulator.concat(current), [])
-                                                          .reduce((accumulator: EquipWithUserInfoAccumulator, current: EquipWithUserInfoElement) => {
-                                                              accumulator[current.id] = current;
-                                                              return accumulator;
-                                                          }, {});
+            if (selectedEchelonType == 'griffin') {
+                type EquipWithUserInfoElement = { "id": string }
+                type EquipWithUserInfoAccumulator = { [key in string]: EquipWithUserInfoElement }
+                indexPacketJson.equip_with_user_info = echelon.tDollsInEchelon
+                                                              .filter(tDollsInEchelon => tDollsInEchelon.tDoll)
+                                                              .map(tDollInEchelon => getEquipsWithUserInfo(tDollInEchelon, userId))
+                                                              .reduce((accumulator, current) => accumulator.concat(current), [])
+                                                              .reduce((accumulator: EquipWithUserInfoAccumulator, current: EquipWithUserInfoElement) => {
+                                                                  accumulator[current.id] = current;
+                                                                  return accumulator;
+                                                              }, {});
 
-            indexPacketJson.gun_with_user_info = echelon.tDollsInEchelon
-                                                        .filter(tDollsInEchelon => tDollsInEchelon.tDoll)
-                                                        .map(tDollInEchelon => getGunWithUserInfo(tDollInEchelon, userId));
+                indexPacketJson.gun_with_user_info = echelon.tDollsInEchelon
+                                                            .filter(tDollsInEchelon => tDollsInEchelon.tDoll)
+                                                            .map(tDollInEchelon => getGunWithUserInfo(tDollInEchelon, userId));
 
-            const templateFairyWithUserInfo = fs.readFileSync(getStaticPath(path.join('packet', 'fairy_with_user_info.tjson')), 'utf8');
-            const fairyWithUserInfo = fairy ? templateFairyWithUserInfo.replace(/\${userId}/g, `${userId}`)
-                                                                       .replace(/\${fairyId}/g, `${fairy.id}`)
-                                                                       .replace(/\${fairyLevel}/g, `${fairy.level}`)
-                                                                       .replace(/\${fairyExp}/g, `${fairy.exp()}`)
-                                                                       .replace(/\${fairyRarity}/g, `${fairy.rarity}`)
-                                                                       .replace(/\${fairyRarityExp}/g, `${fairy.rarityExp()}`)
-                                                                       .replace(/\${fairySkill}/g, `${fairy.skill}`)
-                                                                       .replace(/\${fairyTalent}/g, `${fairy.talent.id}`)
-                                            : "[]";
+                const templateFairyWithUserInfo = fs.readFileSync(getStaticPath(path.join('packet', 'fairy_with_user_info.tjson')), 'utf8');
+                const fairyWithUserInfo = fairy ? templateFairyWithUserInfo.replace(/\${userId}/g, `${userId}`)
+                                                                           .replace(/\${fairyId}/g, `${fairy.id}`)
+                                                                           .replace(/\${fairyLevel}/g, `${fairy.level}`)
+                                                                           .replace(/\${fairyExp}/g, `${fairy.exp()}`)
+                                                                           .replace(/\${fairyRarity}/g, `${fairy.rarity}`)
+                                                                           .replace(/\${fairyRarityExp}/g, `${fairy.rarityExp()}`)
+                                                                           .replace(/\${fairySkill}/g, `${fairy.skill}`)
+                                                                           .replace(/\${fairyTalent}/g, `${fairy.talent.id}`)
+                                                : "[]";
 
-            indexPacketJson.fairy_with_user_info = JSON.parse(fairyWithUserInfo);
+                indexPacketJson.fairy_with_user_info = JSON.parse(fairyWithUserInfo);
+            } else {
+                indexPacketJson.sangvis_with_user_info = coalitionEchelon.unitsInEchelon
+                                                                         .map((coalitionUnitInEchelon, i) => getSangvisWithUserInfo(coalitionUnitInEchelon, i, userId));
 
-            const spotActInfo = getSpotActInfo(isDay, enemyTeamId, nodeBelongsTo, fairyInEchelon?.talentTriggers ? 146 : 56, hocs);
+
+                const templateSangvisTeamWithUserInfo = fs.readFileSync(getStaticPath(path.join('packet', 'sangvis_team_with_user_info.tjson')), 'utf8');
+                let sangvisTeamWithUserInfo = templateSangvisTeamWithUserInfo.replace(/\${userId}/g, `${userId}`);
+                [...Array(9).keys()].forEach(i => {
+                    const unitInEchelon = coalitionEchelon.unitsInEchelon[i];
+                    sangvisTeamWithUserInfo = sangvisTeamWithUserInfo.replace(new RegExp(`\\\${coalition${i}Id}`, "g"), `${unitInEchelon ? coalitionUidOffset + i : 0}`)
+                                                                     .replace(new RegExp(`\\\${coalition${i}Position}`, "g"), `${unitInEchelon ? getStandNumber(unitInEchelon.gridPosition) : 0}`);
+                });
+                indexPacketJson.sangvis_team_with_user_info = [JSON.parse(sangvisTeamWithUserInfo)];
+
+                indexPacketJson.sangvis_chip_with_user_info = [coalitionEchelon.leader()?.coalitionUnit?.chipOne,
+                                                               coalitionEchelon.leader()?.coalitionUnit?.chipTwo].map((chip, i) => chip
+                                                                                                                                   ? fs.readFileSync(getStaticPath(path.join('packet', 'sangvis_chip_with_user_info.tjson')), 'utf8')
+                                                                                                                                       .replace(/\${userId}/g, `${userId}`)
+                                                                                                                                       .replace(/\${chipId}/g, `${chip.id}`)
+                                                                                                                                       .replace(/\${coalitionUID}/g, `${coalitionUidOffset}`)
+                                                                                                                                       .replace(/\${chipSlot}/g, `${i + 1}`)
+                                                                                                                                   : undefined)
+                                                                                                                 .filter(sangvisChipWithUserInfo => sangvisChipWithUserInfo)
+                                                                                                                 .map(sangvisChipWithUserInfo => JSON.parse(sangvisChipWithUserInfo));
+            }
+
+            const spotActInfo = getSpotActInfo(selectedEchelonType, isDay, enemyTeamId, nodeBelongsTo, fairyInEchelon?.talentTriggers ? 146 : 56, hocs);
             indexPacketJson.spot_act_info = spotActInfo;
 
             indexPacketJson.squad_with_user_info = hocs.length ? hocs.map(hoc => hoc.squadWithUserInfo())
@@ -412,4 +444,48 @@ function getGunWithUserInfo(tDollInEchelon: TDollInEchelon, userId: number) {
                                                    .replace(/\${tDollOath}/g, `${tDoll.oathed ? 1 : 0}`);
 
     return JSON.parse(gunWithUserInfo);
+}
+
+function getSangvisWithUserInfo(coalitionUnitInEchelon: CoalitionUnitInEchelon, coalitionUnitInEchelonPosition: number, userId: number) {
+    const coalitionUnit: CoalitionUnit = coalitionUnitInEchelon.coalitionUnit;
+    const coalitionUID = coalitionUidOffset + coalitionUnitInEchelonPosition;
+    const templateSangvisWithUserInfo = fs.readFileSync(getStaticPath(path.join('packet', 'sangvis_with_user_info.tjson')), 'utf8');
+
+    let skillOne = coalitionUnit.skillOne || 0;
+    let skillTwo = coalitionUnit.skillTwo || 0;
+    let skillThree = coalitionUnit.skillThree || 0;
+    let skillFour = coalitionUnit.skillFour || 0;
+
+    // 𝓶𝓲𝓬𝓪 skill order time
+    // 3⭐: 1 2 3 4
+    // 2⭐: 0 0 1 2
+    // 1⭐: 0 0 0 1
+    if (coalitionUnit.type() != CoalitionUnitType.Ringleader) {
+        const hasTwoSkills = coalitionUnit.initialRarity() > 1;
+        skillThree = hasTwoSkills ? skillOne : 0;
+        skillFour = hasTwoSkills ? skillTwo : skillOne;
+        skillOne = 0;
+        skillTwo = 0;
+    }
+
+    const sangvisWithUserInfo = templateSangvisWithUserInfo.replace(/\${coalitionUID}/g, `${coalitionUID}`)
+                                                           .replace(/\${userId}/g, `${userId}`)
+                                                           .replace(/\${coalitionId}/g, `${coalitionUnit.id}`)
+                                                           .replace(/\${coalitionExp}/g, `${coalitionUnit.exp()}`)
+                                                           .replace(/\${coalitionLevel}/g, `${coalitionUnit.level}`)
+                                                           .replace(/\${coalitionRarity}/g, `${coalitionUnit.rarity}`)
+                                                           .replace(/\${coalitionDummies}/g, `${coalitionUnit.dummies - 1}`)
+                                                           .replace(/\${coalitionSize}/g, `${coalitionUnit.size || 0}`)
+                                                           .replace(/\${coalitionSkillOne}/g, `${skillOne}`)
+                                                           .replace(/\${coalitionSkillTwo}/g, `${skillTwo}`)
+                                                           .replace(/\${coalitionSkillThree}/g, `${skillThree}`)
+                                                           .replace(/\${coalitionSkillFour}/g, `${skillFour}`)
+                                                           .replace(/\${coalitionChipOne}/g, `${coalitionUnit.chipOne || 0}`)
+                                                           .replace(/\${coalitionChipTwo}/g, `${coalitionUnit.chipTwo || 0}`)
+                                                           .replace(/\${coalitionAffection}/g, `${coalitionUnit.affection * 10_000}`)
+                                                           .replace(/\${coalitionMaxAffection}/g, `${coalitionUnit.maxAffection() * 10_000}`)
+                                                           .replace(/\${coalitionLife}/g, `${coalitionUnit.life()}`)
+                                                           .replace(/\${coalitionOath}/g, `${coalitionUnit.oathed ? 1 : 0}`);
+
+    return JSON.parse(sangvisWithUserInfo);
 }

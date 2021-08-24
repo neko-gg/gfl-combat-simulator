@@ -24,17 +24,17 @@ export interface SpotActInfo {
     supply_count: string;
 }
 
-function mapSpotActInfo(spotIds: number[], hocs: HOC[], hocSpotIds: number[], fightSpotId: number, enemyTeamId: number, nodeBelongsTo: NodeBelongsTo, seed: number): SpotActInfo[] {
+function mapSpotActInfo(selectedEchelonType: "griffin" | "coalition", spotIds: number[], hocs: HOC[], hocSpotIds: number[], fightSpotId: number, enemyTeamId: number, nodeBelongsTo: NodeBelongsTo, seed: number): SpotActInfo[] {
     let hocCounter = 0;
     return spotIds.map(spotId => ({
         spot_id: `${spotId}`,
-        team_id: `${fightSpotId === spotId ? 1 : 0}`,
+        team_id: `${selectedEchelonType == "griffin" && fightSpotId === spotId ? 1 : 0}`,
         belong: `${fightSpotId === spotId ? nodeBelongsTo : NodeBelongsTo.WHITE}`,
         if_random: "0",
         reinforce_count: "0",
         seed: seed,
         enemy_team_id: `${fightSpotId === spotId ? enemyTeamId : 0}`,
-        sangvis_team_id: "0",
+        sangvis_team_id: `${selectedEchelonType == "coalition" && fightSpotId === spotId ? 1 : 0}`,
         boss_hp: "0",
         enemy_hp_percent: "1",
         enemy_instance_id: `${fightSpotId === spotId ? 1 : 0}`,
@@ -50,22 +50,22 @@ function mapSpotActInfo(spotIds: number[], hocs: HOC[], hocSpotIds: number[], fi
     } as SpotActInfo));
 }
 
-function getDaySpotActInfo(enemyTeamId: number, nodeBelongsTo: NodeBelongsTo, seed: number, hocs: HOC[] = []): SpotActInfo[] {
+function getDaySpotActInfo(selectedEchelonType: "griffin" | "coalition", enemyTeamId: number, nodeBelongsTo: NodeBelongsTo, seed: number, hocs: HOC[] = []): SpotActInfo[] {
     const spotIds = [99, 100, 101, 102, 103, 104, 105, 106, 107];
     const hocSpotIds = [99, 100, 101, 102, 104, 105, 106, 107];
     const fightSpotId = 103;
 
-    return mapSpotActInfo(spotIds, hocs, hocSpotIds, fightSpotId, enemyTeamId, nodeBelongsTo, seed);
+    return mapSpotActInfo(selectedEchelonType, spotIds, hocs, hocSpotIds, fightSpotId, enemyTeamId, nodeBelongsTo, seed);
 }
 
-function getNightSpotActInfo(enemyTeamId: number, nodeBelongsTo: NodeBelongsTo, seed: number, hocs: HOC[] = []): SpotActInfo[] {
+function getNightSpotActInfo(selectedEchelonType: "griffin" | "coalition", enemyTeamId: number, nodeBelongsTo: NodeBelongsTo, seed: number, hocs: HOC[] = []): SpotActInfo[] {
     const spotIds = [1308, 1309, 1310, 1348, 1349, 1350, 1351, 1352, 1353];
     const hocSpotIds = [1308, 1309, 1310, 1348, 1351, 1352, 1353]
     const fightSpotId = 1349;
 
-    return mapSpotActInfo(spotIds, hocs, hocSpotIds, fightSpotId, enemyTeamId, nodeBelongsTo, seed);
+    return mapSpotActInfo(selectedEchelonType, spotIds, hocs, hocSpotIds, fightSpotId, enemyTeamId, nodeBelongsTo, seed);
 }
 
-export function getSpotActInfo(isDay: boolean, enemyTeamId: number, nodeBelongsTo: NodeBelongsTo, seed: number, hocs: HOC[] = []): SpotActInfo[] {
-    return isDay ? getDaySpotActInfo(enemyTeamId, nodeBelongsTo, seed, hocs) : getNightSpotActInfo(enemyTeamId, nodeBelongsTo, seed, hocs);
+export function getSpotActInfo(selectedEchelonType: "griffin" | "coalition", isDay: boolean, enemyTeamId: number, nodeBelongsTo: NodeBelongsTo, seed: number, hocs: HOC[] = []): SpotActInfo[] {
+    return isDay ? getDaySpotActInfo(selectedEchelonType, enemyTeamId, nodeBelongsTo, seed, hocs) : getNightSpotActInfo(selectedEchelonType, enemyTeamId, nodeBelongsTo, seed, hocs);
 }

@@ -23,6 +23,12 @@ import {updateStcSquadGrid} from "@app/data/StcSquadGridUpdater";
 import {updateStcSquadAdvancedBonus} from "@app/data/StcSquadAdvancedBonusUpdater";
 import {updateStcSquadExp} from "@app/data/StcSquadExpUpdater";
 import {getDataVersion} from "@app/data/DataVersionExtractor";
+import {updateStcSangvis} from "@app/data/StcSangvisUpdater";
+import {updateStcSangvisExp} from "@app/data/StcSangvisExpUpdater";
+import {updateStcSangvisChip} from "@app/data/StcSangvisChipUpdater";
+import {updateStcSangvisResolution} from "@app/data/StcSangvisResolutionUpdater";
+import {updateStcSangvisType} from "@app/data/StcSangvisTypeUpdater";
+import {updateStcSangvisAdvance} from "@app/data/StcSangvisAdvanceUpdater";
 
 async function getStcZipFileName(dataVersion: string): Promise<string> {
     return new Promise(resolve => {
@@ -58,6 +64,12 @@ async function getStcZipFileName(dataVersion: string): Promise<string> {
     await updateStcSquadGrid(extractDir, outputDir);
     await updateStcSquadAdvancedBonus(extractDir, outputDir);
     await updateStcSquadExp(extractDir, outputDir);
+    await updateStcSangvis(extractDir, outputDir);
+    await updateStcSangvisExp(extractDir, outputDir);
+    await updateStcSangvisChip(extractDir, outputDir);
+    await updateStcSangvisResolution(extractDir, outputDir);
+    await updateStcSangvisType(extractDir, outputDir);
+    await updateStcSangvisAdvance(extractDir, outputDir);
 
     const catchDataPath = path.resolve(tempDirPath, 'stc', 'catchdata.dat');
     const catchDataOutputDir = path.resolve(outputDir, 'catchdata');

@@ -2,10 +2,8 @@ import React from 'react';
 import {hot} from 'react-hot-loader';
 import '../styles/app.less';
 import Echelon from "@app/model/Echelon";
-import EchelonGrid from "@app/components/EchelonGrid";
 import state from "@app/state/state";
 import {ipcRenderer} from "electron";
-import EchelonListFairy from "@app/components/EchelonListFairy";
 import {AppBar, Tab, Tabs} from "@material-ui/core";
 import EchelonEnemy from "@app/components/Enemy";
 import Battle from "@app/components/Battle";
@@ -14,9 +12,13 @@ import Settings from "@app/components/Settings";
 import {NodeBelongsTo} from "@app/model/NodeBelongsTo";
 import HOC from "@app/components/HOC";
 import SwipeableViews from 'react-swipeable-views';
+import EchelonComponent from "@app/components/EchelonComponent";
+import {TabPanel} from "@app/components/TabPanel";
+import CoalitionEchelon from "@app/model/CoalitionEchelon";
 
 interface AppState {
     echelon: Echelon;
+    coalitionEchelon: CoalitionEchelon;
     enemyTeamId: number;
     enemyBossHp: number;
     isDay: boolean;
@@ -28,6 +30,7 @@ interface AppState {
 class App extends React.Component<unknown, AppState> {
     readonly state: AppState = {
         echelon: state.Instance.echelon,
+        coalitionEchelon: state.Instance.coalitionEchelon,
         enemyTeamId: state.Instance.enemyTeamId,
         enemyBossHp: state.Instance.enemyBossHp,
         isDay: state.Instance.isDay,
@@ -39,6 +42,7 @@ class App extends React.Component<unknown, AppState> {
     constructor(props: unknown) {
         super(props);
         this.updateEchelon = this.updateEchelon.bind(this);
+        this.updateCoalitionEchelon = this.updateCoalitionEchelon.bind(this);
         this.updateEnemyTeam = this.updateEnemyTeam.bind(this);
         this.changeTab = this.changeTab.bind(this);
         this.setIsDay = this.setIsDay.bind(this);
@@ -49,6 +53,11 @@ class App extends React.Component<unknown, AppState> {
     updateEchelon() {
         this.setState({echelon: this.state.echelon});
         ipcRenderer.send('echelon-updated', this.state.echelon);
+    }
+
+    updateCoalitionEchelon() {
+        this.setState({coalitionEchelon: this.state.coalitionEchelon});
+        ipcRenderer.send('coalition-echelon-updated', this.state.coalitionEchelon);
     }
 
     updateEnemyTeam(enemyTeamId: number, enemyBossHp: number) {
@@ -90,8 +99,10 @@ class App extends React.Component<unknown, AppState> {
                             index={this.state.tabIndex}
                             onChangeIndex={index => this.changeTab(undefined, index)}>
                 <TabPanel index={0} value={this.state.tabIndex}>
-                    <EchelonGrid echelon={this.state.echelon} updateEchelon={this.updateEchelon}/>
-                    <EchelonListFairy echelon={this.state.echelon} updateEchelon={this.updateEchelon}/>
+                    <EchelonComponent echelon={this.state.echelon}
+                                      updateEchelon={this.updateEchelon}
+                                      coalitionEchelon={this.state.coalitionEchelon}
+                                      updateCoalitionEchelon={this.updateCoalitionEchelon}/>
                 </TabPanel>
                 <TabPanel index={1} value={this.state.tabIndex}>
                     <EchelonEnemy enemyTeamId={this.state.enemyTeamId} updateEnemyTeam={this.updateEnemyTeam}/>
@@ -108,18 +119,6 @@ class App extends React.Component<unknown, AppState> {
             </SwipeableViews>
         </>
     }
-}
-
-function TabPanel(props: { index: number, value: number, children?: React.ReactNode }) {
-    const {children, value, index, ...other} = props;
-
-    return (
-        <div role="tabpanel"
-             hidden={value !== index}
-             {...other}>
-            {children}
-        </div>
-    );
 }
 
 export default hot(module)(App);

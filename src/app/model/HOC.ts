@@ -375,11 +375,6 @@ const emptyHOCAssistStats = () => ({
     reload: 0
 });
 
-const squadInfos = squadInfo.reduce((accumulator: StcSquad[], current: StcSquad) => {
-    accumulator[current.id] = current;
-    return accumulator;
-}, []);
-
 const squadStandardAttributionInfos = squadStandardAttributionInfo.reduce((accumulator: { [key in string]: StcSquadStandardAttribution }, current: StcSquadStandardAttribution) => {
     accumulator[current.attribute_type] = current;
     return accumulator;
@@ -419,6 +414,12 @@ const squadAdvancedBonusInfos = squadAdvancedBonusInfo.reduce((accumulator: StcS
 
 const squadExpInfos = squadExpInfo.reduce((accumulator: StcSquadExp[], current: StcSquadExp) => {
     accumulator[current.lv] = current;
+    return accumulator;
+}, []);
+
+const squadInfos = squadInfo.filter(squad => squadCpuCompletionInfos[squad.id])
+                            .reduce((accumulator: StcSquad[], current: StcSquad) => {
+    accumulator[current.id] = current;
     return accumulator;
 }, []);
 

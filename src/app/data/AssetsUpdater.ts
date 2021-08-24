@@ -58,7 +58,9 @@ async function getAsset(resDataJson: { BaseAssetBundles: { assetBundleName: stri
     await fs.promises.copyFile(path.resolve(assetTextTablePath, 'fairy.txt'), path.resolve(outputDir, 'fairy.txt'));
     await fs.promises.copyFile(path.resolve(assetTextTablePath, 'enemy_character_type.txt'), path.resolve(outputDir, 'enemy_character_type.txt'));
     await fs.promises.copyFile(path.resolve(assetTextTablePath, 'squad.txt'), path.resolve(outputDir, 'squad.txt'));
+    await fs.promises.copyFile(path.resolve(assetTextTablePath, 'sangvis.txt'), path.resolve(outputDir, 'sangvis.txt'));
+    await fs.promises.copyFile(path.resolve(assetTextTablePath, 'sangvis_chip.txt'), path.resolve(outputDir, 'sangvis_chip.txt'));
 
-    console.log(tempDirPath);
+    console.log('assets extracted in:', tempDirPath);
 })()
 

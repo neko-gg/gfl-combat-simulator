@@ -1,8 +1,0 @@
-{
-    "win32-x64-prod": {
-        "readme": "v0.7",
-        "update": "https://github.com/neko-gg/gfl-combat-simulator/releases/tag/v0.7",
-        "install": "https://github.com/neko-gg/gfl-combat-simulator/releases/download/v0.7/GFL.Combat.Simulator-win32-x64-0.7.0.zip",
-        "version": "0.7"
-    }
-}
