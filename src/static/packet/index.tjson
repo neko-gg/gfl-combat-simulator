@@ -2654,7 +2654,7 @@
     ],
     "user_game_setting":{
         "uid": "${userId}",
-        "settings": "{\"playReplay\":false,\"autoSupply\":false,\"bulletTime\":true,\"autoLock\":false,\"illusLike\":false,\"skillPerformance\":false,\"gunBreakProtect\":false,\"showBattleMessage\":false,\"autoFairySkill\":true,\"showCharacterLive2D\":true,\"showBackgroundLive2D\":true,\"simplifyBattle\":false,\"vibrate\":true,\"dormShowComment\":true}"
+        "settings": "{\"playReplay\":false,\"autoSupply\":false,\"bulletTime\":true,\"autoLock\":false,\"illusLike\":false,\"skillPerformance\":false,\"gunBreakProtect\":false,\"showBattleMessage\":false,\"autoFairySkill\":true,\"showCharacterLive2D\":true,\"showBackgroundLive2D\":true,\"simplifyBattle\":false,\"vibrate\":true,\"dormShowComment\":true,\"characterSkillPerformance\":1,\"sangvisSkillPerformance\":1}"
     },
     "mission_key_with_user_info":[
 
