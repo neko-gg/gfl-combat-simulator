@@ -371,6 +371,17 @@ export default class TDoll {
                           .sort((a, b) => {
                               if (a.fits() != 'all') return b.fits() != 'all' ? 0 : -1;
                               if (b.fits() != 'all') return 1;
+                              if (a.type() === EquipType.EXOSKELETON && b.type() === EquipType.EXOSKELETON && a.rarity() === b.rarity()) {
+                                  const isDamageDealer = [...damageDealerExceptions, ...damageDealerExceptions.map(id => id + this._modOffset)].includes(this.id) || [TDollClass.AR, TDollClass.RF, TDollClass.MG].includes(this.class());
+
+                                  const getExoType = (equip: Equip) => equip.name().match(/T\d Exoskeleton/) ? 'T' : equip.name().match(/X\d Exoskeleton/) ? 'X' : 'OTHER';
+                                  const aType = getExoType(a);
+                                  const bType = getExoType(b);
+
+                                  if (aType != bType) {
+                                      return isDamageDealer ? aType == 'X' ? -1 : 1 : aType == 'T' ? -1 : 1;
+                                  }
+                              }
                               return b.rarity() - a.rarity();
                           });
     }
@@ -531,3 +542,29 @@ export default class TDoll {
         }
     }
 }
+
+const damageDealerExceptions = [
+    // Grenadiers
+    17, // M3
+    20, // Vector
+    21, // PPSh-41
+    22, // PPS-43
+    24, // PP-2000
+    25, // MP40
+    27, // Skorpion
+    29, // Sten MkII
+    32, // Micro Uzi
+    116, // Z-62
+    131, // EVO 3
+    136, // PP-19
+    177, // KLIN
+    191, // M12
+    304, // SAF
+
+    // DPS
+    102, // UMP40
+    135, // SR-3MP
+    169, // SCW
+    203, // Honey Badger
+    213, // C-MS
+];

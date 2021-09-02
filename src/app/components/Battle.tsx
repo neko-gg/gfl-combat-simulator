@@ -249,7 +249,8 @@ class Battle extends React.Component<BattleProps, BattleState> {
                                 <TableCell>
                                     <Select className="battle-strategy-skill-select"
                                             value={fairySkillLevels[i]}
-                                            onChange={event => setFairySkillLevel(i, event.target.value as number)}>
+                                            onChange={event => setFairySkillLevel(i, event.target.value as number)}
+                                            disabled={!fairySkill.maxLevel}>
                                         {fairySkill.maxLevel ? [...Array(fairySkill.maxLevel).keys()].map(i => i + 1)
                                                                                                      .reverse()
                                                                                                      .map(level => (<MenuItem key={level}
