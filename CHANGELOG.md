@@ -2,6 +2,11 @@
 
 All notable changes to GFL Combat Simulator.
 
+### 0.9
+- 🔧 Improve updater UX
+- 🔧 Improve default equipment selection
+- 🐛 Disable fairy skill selection when not applicable
+
 ### 0.8.1
 - 🐛 Fix HOCs not appearing
 
